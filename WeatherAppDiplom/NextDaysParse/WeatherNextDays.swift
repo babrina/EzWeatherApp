@@ -9,7 +9,7 @@ import Foundation
 
 class WeatherNextDays: Codable {
     let id: Int
-    let main: MainEnum
+    let main: String
     let weatherDescription: String
     let icon: String?
 
@@ -19,7 +19,7 @@ class WeatherNextDays: Codable {
         case icon
     }
 
-    init(id: Int, main: MainEnum, weatherDescription: String, icon: String) {
+    init(id: Int, main: String, weatherDescription: String, icon: String) {
         self.id = id
         self.main = main
         self.weatherDescription = weatherDescription
@@ -34,11 +34,11 @@ class WeatherNextDays: Codable {
 //    case the10N = "10n"
 //}
 
-enum MainEnum: String, Codable {
-    case clouds = "Clouds"
-    case rain = "Rain"
-    case clear = "Clear"
-}
+//enum MainEnum: String, Codable {
+//    case clouds = "Clouds"
+//    case rain = "Rain"
+//    case clear = "Clear"
+//}
 
 enum DescriptionNextDays: String, Codable {
     case brokenClouds = "broken clouds"
