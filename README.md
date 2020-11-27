@@ -1,6 +1,6 @@
 My simple Weather app.
 
-![alt text](screenshots/mainscreen.png "Main screen of my app")​
+![alt text](Screenshots/mainscreen.png "Main screen of my app")​
 
 
 
