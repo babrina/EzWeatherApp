@@ -72,15 +72,24 @@ class WeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        town = town.urlEncoded()!
-       
-        
+        setUp()
+    }
+    
+    
+    
+    @IBAction func backButtonPressed(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    
+    func setUp() {
+        setTown()
         makeCornerInterface()
         loadForecast()
-        
-        
-        
+    }
+    
+    func setTown() {
+        town = town.urlEncoded()!
     }
     
     func loadForecast() {
@@ -126,10 +135,16 @@ class WeatherViewController: UIViewController {
                     self?.plusFiveDaysImageView.downloaded(from: "https://openweathermap.org/img/wn/\(dailyWeather.fifthNextDayPicture)@4x.png")
                     self?.plusFiveDaysTemp.text = dailyWeather.fifthNextDayTemp + "°"
                     
+                    guard let currentlat = self?.currentWeather.lat else {return}
+                    self?.lat = currentlat
                     
-                    self?.lat = self!.currentWeather.lat
-                    self?.lon = self!.currentWeather.lon
-                    self?.tempLabel.text = String(Int(self!.currentWeather.temp)) + "°"
+                    guard let currentlon = self?.currentWeather.lon else {return}
+                    self?.lon = currentlon
+                    
+                    guard let currentTempLabel = self?.currentWeather.temp else {return}
+                    self?.tempLabel.text = String(Int(currentTempLabel)) + "°"
+                    
+                    
                     self?.cityLabel.text = self!.currentWeather.name
                     self?.humidityLabel.text = String(self!.currentWeather.humidity) + "%"
                     self?.windLabel.text = String(self!.currentWeather.wind)
@@ -138,11 +153,7 @@ class WeatherViewController: UIViewController {
                     self!.weatherImage.downloaded(from: "https://openweathermap.org/img/wn/\(self!.currentWeather.picture)@4x.png")
                 }
             }
-            
         }
-        
-        
-        
     }
     
     func makeCornerInterface() {
@@ -155,16 +166,11 @@ class WeatherViewController: UIViewController {
         daysView.dropShadow()
     }
     
-    @IBAction func backButtonPressed(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
     
     func sendRequest(complition: @escaping (CurrentWeather) -> ()) {
         
         let unFormattedURL = "https://api.openweathermap.org/data/2.5/weather?\(accsessPoint)\(town)&appid=9447cdea74b8b95f4fc841ab07797377&units=metric"
-      
-//        guard let urlString = unFormattedURL.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) else {return}
+        
         guard let url = URL(string: unFormattedURL) else {return}
         
         
@@ -225,8 +231,7 @@ class WeatherViewController: UIViewController {
     func grabDaily(complition: @escaping (NextDaysWeather) -> ()) {
         
         let unFormattedURL = "https://api.openweathermap.org/data/2.5/forecast?\(accsessPoint)\(town)&appid=9447cdea74b8b95f4fc841ab07797377&units=metric"
-       
-//        let urlString = unFormattedURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        
         guard let url = URL(string: unFormattedURL) else {return}
         
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -327,22 +332,9 @@ class WeatherViewController: UIViewController {
         dateFormatter.timeZone = .current
         return dateFormatter.string(from: date)
     }
-    
-    
 }
 
 
-
-
-extension Int {
-    func getFormattedDate(input: Double,format: String = "EEEE, d") -> String {
-        let date = Date(timeIntervalSince1970: input)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        dateFormatter.timeZone = .current
-        return dateFormatter.string(from: date)
-    }
-}
 
 
 extension UIImageView {
@@ -358,8 +350,10 @@ extension UIImageView {
             DispatchQueue.main.async() { [weak self] in
                 self?.image = image
             }
-        }.resume()
+        }
+        .resume()
     }
+    
     func downloaded(from link: String, contentMode mode: UIView.ContentMode = .scaleAspectFit) {
         guard let url = URL(string: link) else { return }
         downloaded(from: url, contentMode: mode)
@@ -368,22 +362,22 @@ extension UIImageView {
 
 
 public extension CharacterSet {
-
+    
     static let urlQueryParameterAllowed = CharacterSet.urlQueryAllowed.subtracting(CharacterSet(charactersIn: "&?"))
-
+    
     static let urlQueryDenied           = CharacterSet.urlQueryAllowed.inverted()
     static let urlQueryKeyValueDenied   = CharacterSet.urlQueryParameterAllowed.inverted()
     static let urlPathDenied            = CharacterSet.urlPathAllowed.inverted()
     static let urlFragmentDenied        = CharacterSet.urlFragmentAllowed.inverted()
     static let urlHostDenied            = CharacterSet.urlHostAllowed.inverted()
-
+    
     static let urlDenied                = CharacterSet.urlQueryDenied
         .union(.urlQueryKeyValueDenied)
         .union(.urlPathDenied)
         .union(.urlFragmentDenied)
         .union(.urlHostDenied)
-
-
+    
+    
     func inverted() -> CharacterSet {
         var copy = self
         copy.invert()
