@@ -68,7 +68,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.startUpdatingLocation()
     }
     func jsonCity() {
-        let path = Bundle.main.path(forResource: "cititesWorked", ofType: "json")!
+        let path = Bundle.main.path(forResource: "weatherappcitiescleaned", ofType: "json")!
         do {
             let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
             let object = try JSONDecoder().decode(CityJSON.self, from: data)
