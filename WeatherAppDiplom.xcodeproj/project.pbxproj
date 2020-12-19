@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		910062A2257C2DB100834A39 /* weatherappcitiescleaned.json in Resources */ = {isa = PBXBuildFile; fileRef = 910062A1257C2DB100834A39 /* weatherappcitiescleaned.json */; };
-		913C2617257127AC00E3AFB7 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 913C2616257127AC00E3AFB7 /* Alamofire */; };
 		91401363256F9DE900BC6A24 /* AutocompleteField in Frameworks */ = {isa = PBXBuildFile; productRef = 91401362256F9DE900BC6A24 /* AutocompleteField */; };
-		91401366256FA50100BC6A24 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91401365256FA50100BC6A24 /* TestViewController.swift */; };
 		9150B54B256FCD7800C32223 /* CityJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9150B54A256FCD7800C32223 /* CityJSON.swift */; };
 		9150B54E256FCE3B00C32223 /* Citys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9150B54D256FCE3B00C32223 /* Citys.swift */; };
 		919884972568FC9F00AC5A05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919884962568FC9F00AC5A05 /* AppDelegate.swift */; };
@@ -38,6 +36,9 @@
 		919884E8256948FA00AC5A05 /* SysNextDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919884E7256948FA00AC5A05 /* SysNextDays.swift */; };
 		919884EB2569491700AC5A05 /* WeatherNextDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919884EA2569491700AC5A05 /* WeatherNextDays.swift */; };
 		919884EE256949BA00AC5A05 /* WindNextDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919884ED256949BA00AC5A05 /* WindNextDays.swift */; };
+		91FC1292258DDD7D0012748A /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FC1291258DDD7D0012748A /* Bindable.swift */; };
+		91FC1296258DDD970012748A /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FC1295258DDD970012748A /* ViewModel.swift */; };
+		91FC129A258DE48A0012748A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FC1299258DE48A0012748A /* Extensions.swift */; };
 		A7688975A01C52B2029DDD79 /* Pods_WeatherAppDiplom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D256B775291131A5A677674 /* Pods_WeatherAppDiplom.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,7 +46,6 @@
 		5691D0A6DD2399CD2E503974 /* Pods-WeatherAppDiplom.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherAppDiplom.release.xcconfig"; path = "Target Support Files/Pods-WeatherAppDiplom/Pods-WeatherAppDiplom.release.xcconfig"; sourceTree = "<group>"; };
 		7D256B775291131A5A677674 /* Pods_WeatherAppDiplom.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeatherAppDiplom.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		910062A1257C2DB100834A39 /* weatherappcitiescleaned.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = weatherappcitiescleaned.json; sourceTree = "<group>"; };
-		91401365256FA50100BC6A24 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		9150B54A256FCD7800C32223 /* CityJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityJSON.swift; sourceTree = "<group>"; };
 		9150B54D256FCE3B00C32223 /* Citys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Citys.swift; sourceTree = "<group>"; };
 		919884932568FC9F00AC5A05 /* WeatherAppDiplom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherAppDiplom.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +75,9 @@
 		919884E7256948FA00AC5A05 /* SysNextDays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SysNextDays.swift; sourceTree = "<group>"; };
 		919884EA2569491700AC5A05 /* WeatherNextDays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherNextDays.swift; sourceTree = "<group>"; };
 		919884ED256949BA00AC5A05 /* WindNextDays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindNextDays.swift; sourceTree = "<group>"; };
+		91FC1291258DDD7D0012748A /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
+		91FC1295258DDD970012748A /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		91FC1299258DE48A0012748A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C0CBE73701D7485BF20A2226 /* Pods-WeatherAppDiplom.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherAppDiplom.debug.xcconfig"; path = "Target Support Files/Pods-WeatherAppDiplom/Pods-WeatherAppDiplom.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,7 +87,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				91401363256F9DE900BC6A24 /* AutocompleteField in Frameworks */,
-				913C2617257127AC00E3AFB7 /* Alamofire in Frameworks */,
 				A7688975A01C52B2029DDD79 /* Pods_WeatherAppDiplom.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -140,18 +142,19 @@
 		919884952568FC9F00AC5A05 /* WeatherAppDiplom */ = {
 			isa = PBXGroup;
 			children = (
+				91FC1298258DE47B0012748A /* Extensions */,
+				91FC1290258DDD430012748A /* MainViewController */,
 				9150B546256FCCF000C32223 /* CityJSON */,
 				919884D02569474300AC5A05 /* NextDaysParse */,
 				919884B02568FCF000AC5A05 /* WeatherClasses */,
 				919884AF2568FCE600AC5A05 /* WeatherParse */,
 				919884962568FC9F00AC5A05 /* AppDelegate.swift */,
-				9198849A2568FC9F00AC5A05 /* ViewController.swift */,
-				91401365256FA50100BC6A24 /* TestViewController.swift */,
 				919884AC2568FCD200AC5A05 /* WeatherViewController.swift */,
 				9198849C2568FC9F00AC5A05 /* Main.storyboard */,
 				9198849F2568FCA000AC5A05 /* Assets.xcassets */,
 				919884A12568FCA000AC5A05 /* LaunchScreen.storyboard */,
 				919884A42568FCA000AC5A05 /* Info.plist */,
+				91FC1291258DDD7D0012748A /* Bindable.swift */,
 			);
 			path = WeatherAppDiplom;
 			sourceTree = "<group>";
@@ -196,6 +199,23 @@
 			path = NextDaysParse;
 			sourceTree = "<group>";
 		};
+		91FC1290258DDD430012748A /* MainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9198849A2568FC9F00AC5A05 /* ViewController.swift */,
+				91FC1295258DDD970012748A /* ViewModel.swift */,
+			);
+			path = MainViewController;
+			sourceTree = "<group>";
+		};
+		91FC1298258DE47B0012748A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				91FC1299258DE48A0012748A /* Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -216,7 +236,6 @@
 			name = WeatherAppDiplom;
 			packageProductDependencies = (
 				91401362256F9DE900BC6A24 /* AutocompleteField */,
-				913C2616257127AC00E3AFB7 /* Alamofire */,
 			);
 			productName = WeatherAppDiplom;
 			productReference = 919884932568FC9F00AC5A05 /* WeatherAppDiplom.app */;
@@ -320,15 +339,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				919884B22568FD3E00AC5A05 /* Welcome.swift in Sources */,
+				91FC129A258DE48A0012748A /* Extensions.swift in Sources */,
 				919884D9256947F900AC5A05 /* CoordNextDay.swift in Sources */,
 				919884C82568FDC800AC5A05 /* CurrentWeather.swift in Sources */,
 				919884C52568FD9C00AC5A05 /* Wind.swift in Sources */,
 				9198849B2568FC9F00AC5A05 /* ViewController.swift in Sources */,
 				919884D22569477B00AC5A05 /* WelcomeNextDays.swift in Sources */,
+				91FC1296258DDD970012748A /* ViewModel.swift in Sources */,
 				919884EB2569491700AC5A05 /* WeatherNextDays.swift in Sources */,
 				919884CB256945DF00AC5A05 /* NextDaysWeather.swift in Sources */,
 				919884AD2568FCD200AC5A05 /* WeatherViewController.swift in Sources */,
-				91401366256FA50100BC6A24 /* TestViewController.swift in Sources */,
 				919884BF2568FD8100AC5A05 /* Sys.swift in Sources */,
 				919884EE256949BA00AC5A05 /* WindNextDays.swift in Sources */,
 				919884C22568FD9000AC5A05 /* Weather.swift in Sources */,
@@ -340,6 +360,7 @@
 				919884BC2568FD7400AC5A05 /* Main.swift in Sources */,
 				9150B54E256FCE3B00C32223 /* Citys.swift in Sources */,
 				919884DF2569486100AC5A05 /* CloudsNextDays.swift in Sources */,
+				91FC1292258DDD7D0012748A /* Bindable.swift in Sources */,
 				919884DC2569481000AC5A05 /* ListNextDays.swift in Sources */,
 				919884B62568FD5400AC5A05 /* Clouds.swift in Sources */,
 				919884D6256947A300AC5A05 /* CityNextDays.swift in Sources */,
@@ -498,7 +519,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = AndreyZamiralov.WeatherAppDiplom;
+				PRODUCT_BUNDLE_IDENTIFIER = AndreyZamiralov.SextantWeather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -518,7 +539,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = AndreyZamiralov.WeatherAppDiplom;
+				PRODUCT_BUNDLE_IDENTIFIER = AndreyZamiralov.SextantWeather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -568,11 +589,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		913C2616257127AC00E3AFB7 /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 913C2615257127AC00E3AFB7 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
 		91401362256F9DE900BC6A24 /* AutocompleteField */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 91401361256F9DE900BC6A24 /* XCRemoteSwiftPackageReference "AutocompleteField" */;
