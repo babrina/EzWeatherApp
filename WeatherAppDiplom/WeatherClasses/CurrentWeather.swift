@@ -12,7 +12,7 @@ class CurrentWeather: Codable {
     var picture: String = ""
     
     convenience init() {
-        self.init(name: "", temp: 0, humidity: 0, feelsLike: 0, pressure: 0, wind: 0 , lon: 0 ,lat: 0, picture: "")
+        self.init(name: "", temp: 0, humidity: 0, feelsLike: 0, pressure: 0, wind: 0 , lon: 0 , lat: 0, picture: "")
     }
     
     init(name: String, temp: Double, humidity: Int, feelsLike: Double, pressure: Int, wind: Int, lon: Double, lat: Double, picture: String) {
@@ -59,7 +59,6 @@ class CurrentWeather: Codable {
         try container.encode(self.wind, forKey: .wind)
         try container.encode(self.lat, forKey: .lat)
         try container.encode(self.lon, forKey: .lon)
-        
         try container.encode(self.picture, forKey: .picture)
        
     }
