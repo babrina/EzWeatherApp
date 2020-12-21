@@ -27,40 +27,4 @@ class CurrentWeather: Codable {
         self.picture = picture
         
     }
-    
-    public enum CodingKeys: String, CodingKey {
-        case name, temp, humidity, feelsLike, pressure, wind, lon, lat, picture
-    }
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        self.name = try container.decode(String.self, forKey: .name)
-        self.temp = try container.decode(Double.self, forKey: .temp)
-        self.humidity = try container.decode(Int.self, forKey: .humidity)
-        self.feelsLike = try container.decode(Double.self, forKey: .feelsLike)
-        self.pressure = try container.decode(Int.self, forKey: .pressure)
-        self.wind = try container.decode(Int.self, forKey: .wind)
-        self.lat = try container.decode(Double.self, forKey: .lat)
-        self.lon = try container.decode(Double.self, forKey: .lon)
-        
-        self.picture = try container.decode(String.self, forKey: .picture)
-
-    }
-    
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        
-        try container.encode(self.name, forKey: .name)
-        try container.encode(self.temp, forKey: .temp)
-        try container.encode(self.humidity, forKey: .humidity)
-        try container.encode(self.feelsLike, forKey: .feelsLike)
-        try container.encode(self.pressure, forKey: .pressure)
-        try container.encode(self.wind, forKey: .wind)
-        try container.encode(self.lat, forKey: .lat)
-        try container.encode(self.lon, forKey: .lon)
-        try container.encode(self.picture, forKey: .picture)
-       
-    }
-    
 }

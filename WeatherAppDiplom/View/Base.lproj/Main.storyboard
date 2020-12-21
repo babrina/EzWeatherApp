@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="srO-SH-Whk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="srO-SH-Whk">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -86,7 +86,8 @@
                                                         <constraint firstAttribute="height" constant="50" id="fJS-Sl-YYJ"/>
                                                     </constraints>
                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <state key="normal" image="location" catalog="system">
+                                                    <state key="normal">
+                                                        <imageReference key="image" image="location" catalog="system" symbolScale="large"/>
                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                                     </state>
                                                     <connections>
@@ -661,35 +662,74 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sSD-OT-C5t">
                                         <rect key="frame" x="0.0" y="274.5" width="414" height="68.5"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BVA-2r-jtR">
-                                                <rect key="frame" x="213" y="0.0" width="201" height="68.5"/>
-                                            </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WPU-Vf-xfP">
-                                                <rect key="frame" x="207" y="5" width="0.0" height="58.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jp1-vt-zHf">
-                                                <rect key="frame" x="5" y="5" width="197" height="58.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AUT-ur-R5c">
+                                                <rect key="frame" x="20" y="9" width="374" height="50"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YnR-1r-KcZ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="124.5" height="50"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OZB-Sz-CTO">
+                                                                <rect key="frame" x="50" y="12" width="28" height="27"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <color key="tintColor" systemColor="systemBlueColor"/>
+                                                                <state key="normal">
+                                                                    <imageReference key="image" image="magnifyingglass.circle" catalog="system" symbolScale="default"/>
+                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="24"/>
+                                                                </state>
+                                                            </button>
+                                                        </subviews>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ekt-UV-kTu">
+                                                        <rect key="frame" x="249.5" y="0.0" width="124.5" height="50"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kWm-cX-lJC">
+                                                                <rect key="frame" x="48" y="11" width="30" height="28"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <color key="tintColor" systemColor="systemBlueColor"/>
+                                                                <state key="normal" image="text.badge.star" catalog="system">
+                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="24"/>
+                                                                </state>
+                                                            </button>
+                                                        </subviews>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S4L-Lc-rvL">
+                                                        <rect key="frame" x="124.5" y="0.0" width="125" height="50"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wHi-5L-K2S">
+                                                                <rect key="frame" x="47" y="10" width="33" height="30"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <color key="tintColor" systemColor="systemBlueColor"/>
+                                                                <state key="normal" image="star" catalog="system">
+                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
+                                                                </state>
+                                                            </button>
+                                                        </subviews>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="ekt-UV-kTu" firstAttribute="width" secondItem="YnR-1r-KcZ" secondAttribute="width" id="3vi-jJ-QPN"/>
+                                                    <constraint firstItem="YnR-1r-KcZ" firstAttribute="top" secondItem="AUT-ur-R5c" secondAttribute="top" id="6lo-3T-85o"/>
+                                                    <constraint firstAttribute="height" constant="50" id="90Y-Jb-5bL"/>
+                                                    <constraint firstItem="S4L-Lc-rvL" firstAttribute="height" secondItem="YnR-1r-KcZ" secondAttribute="height" id="AVa-fu-EVE"/>
+                                                    <constraint firstAttribute="bottom" secondItem="ekt-UV-kTu" secondAttribute="bottom" id="Pq8-bD-crY"/>
+                                                    <constraint firstAttribute="trailing" secondItem="ekt-UV-kTu" secondAttribute="trailing" id="RlJ-8e-yFm"/>
+                                                    <constraint firstItem="S4L-Lc-rvL" firstAttribute="top" secondItem="AUT-ur-R5c" secondAttribute="top" id="Ta6-5g-kY3"/>
+                                                    <constraint firstAttribute="bottom" secondItem="YnR-1r-KcZ" secondAttribute="bottom" id="Ujj-zt-nqe"/>
+                                                    <constraint firstItem="S4L-Lc-rvL" firstAttribute="leading" secondItem="YnR-1r-KcZ" secondAttribute="trailing" id="fja-iu-pCO"/>
+                                                    <constraint firstItem="S4L-Lc-rvL" firstAttribute="width" secondItem="YnR-1r-KcZ" secondAttribute="width" id="iWh-re-l1L"/>
+                                                    <constraint firstItem="ekt-UV-kTu" firstAttribute="height" secondItem="YnR-1r-KcZ" secondAttribute="height" id="lFQ-ff-wnC"/>
+                                                    <constraint firstAttribute="bottom" secondItem="S4L-Lc-rvL" secondAttribute="bottom" id="m0n-Vl-QOb"/>
+                                                    <constraint firstItem="ekt-UV-kTu" firstAttribute="leading" secondItem="S4L-Lc-rvL" secondAttribute="trailing" id="oIU-Yi-Kn7"/>
+                                                    <constraint firstItem="ekt-UV-kTu" firstAttribute="top" secondItem="AUT-ur-R5c" secondAttribute="top" id="pcL-wR-ggy"/>
+                                                    <constraint firstItem="YnR-1r-KcZ" firstAttribute="leading" secondItem="AUT-ur-R5c" secondAttribute="leading" id="ws6-8e-fcS"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="Jp1-vt-zHf" firstAttribute="leading" secondItem="sSD-OT-C5t" secondAttribute="leading" constant="5" id="39G-te-e8e"/>
-                                            <constraint firstItem="Jp1-vt-zHf" firstAttribute="top" secondItem="sSD-OT-C5t" secondAttribute="top" constant="5" id="3FU-e5-N8j"/>
-                                            <constraint firstItem="WPU-Vf-xfP" firstAttribute="centerX" secondItem="sSD-OT-C5t" secondAttribute="centerX" id="8NP-KO-50z"/>
-                                            <constraint firstAttribute="trailing" secondItem="BVA-2r-jtR" secondAttribute="trailing" id="C2r-Np-upb"/>
-                                            <constraint firstItem="BVA-2r-jtR" firstAttribute="leading" secondItem="WPU-Vf-xfP" secondAttribute="trailing" constant="6" id="NO8-3x-eMy"/>
-                                            <constraint firstItem="BVA-2r-jtR" firstAttribute="top" secondItem="sSD-OT-C5t" secondAttribute="top" id="SHh-mu-x1H"/>
-                                            <constraint firstAttribute="bottom" secondItem="WPU-Vf-xfP" secondAttribute="bottom" constant="5" id="Wh3-fd-b5P"/>
-                                            <constraint firstItem="WPU-Vf-xfP" firstAttribute="centerY" secondItem="sSD-OT-C5t" secondAttribute="centerY" id="aqc-8p-Eaz"/>
-                                            <constraint firstAttribute="bottom" secondItem="Jp1-vt-zHf" secondAttribute="bottom" constant="5" id="cLw-Aw-Mgr"/>
-                                            <constraint firstItem="WPU-Vf-xfP" firstAttribute="top" secondItem="sSD-OT-C5t" secondAttribute="top" constant="5" id="tN7-wW-vka"/>
-                                            <constraint firstItem="WPU-Vf-xfP" firstAttribute="leading" secondItem="Jp1-vt-zHf" secondAttribute="trailing" constant="5" id="yGZ-t1-R1e"/>
-                                            <constraint firstAttribute="bottom" secondItem="BVA-2r-jtR" secondAttribute="bottom" id="ygj-0r-rSA"/>
+                                            <constraint firstItem="AUT-ur-R5c" firstAttribute="centerY" secondItem="sSD-OT-C5t" secondAttribute="centerY" id="2SH-Uv-KpP"/>
+                                            <constraint firstItem="AUT-ur-R5c" firstAttribute="leading" secondItem="sSD-OT-C5t" secondAttribute="leading" constant="20" id="d5Z-Lb-cdd"/>
+                                            <constraint firstAttribute="trailing" secondItem="AUT-ur-R5c" secondAttribute="trailing" constant="20" id="lZk-jt-Kkd"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -757,6 +797,7 @@
                         <outlet property="feelView" destination="tpx-bk-Z1b" id="xe4-wx-jh3"/>
                         <outlet property="hoursView" destination="br5-so-Nle" id="KMg-jG-CgX"/>
                         <outlet property="humidityLabel" destination="oq1-6C-zCk" id="5OD-5C-e1P"/>
+                        <outlet property="menuView" destination="AUT-ur-R5c" id="QqX-dC-oPa"/>
                         <outlet property="next12hoursImageView" destination="3OY-40-oWP" id="7ei-Ff-oKH"/>
                         <outlet property="next12hoursLabel" destination="uBm-lR-prt" id="O3l-yB-OhG"/>
                         <outlet property="next12hoursTempLabel" destination="70H-1g-MhR" id="vzv-AP-3O2"/>
@@ -769,9 +810,6 @@
                         <outlet property="plus3hoursImageView" destination="LkO-XK-82V" id="jRf-0B-Zgq"/>
                         <outlet property="plus3hoursLabel" destination="Jp7-wP-6NK" id="vde-W3-vW6"/>
                         <outlet property="plus3hoursTempLabel" destination="23S-5z-GWF" id="VNj-dQ-Tp4"/>
-                        <outlet property="plusFiveDaysImageView" destination="BVA-2r-jtR" id="62e-13-tlb"/>
-                        <outlet property="plusFiveDaysLabel" destination="Jp1-vt-zHf" id="ybb-27-WMp"/>
-                        <outlet property="plusFiveDaysTemp" destination="WPU-Vf-xfP" id="0uu-Cr-SrP"/>
                         <outlet property="plusFourDaysImageView" destination="dJd-ls-mBm" id="0VU-DM-rGR"/>
                         <outlet property="plusFourDaysLabel" destination="DDU-Ae-peI" id="oo6-zW-cln"/>
                         <outlet property="plusFourDaysTemp" destination="yiT-fj-9cW" id="mMZ-ZU-dZL"/>
@@ -800,6 +838,9 @@
         <image name="How-ice-forms-inside-of-clouds" width="2208" height="1471"/>
         <image name="location" catalog="system" width="128" height="121"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="magnifyingglass.circle" catalog="system" width="128" height="121"/>
+        <image name="star" catalog="system" width="128" height="116"/>
+        <image name="text.badge.star" catalog="system" width="128" height="109"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -3,13 +3,13 @@ import Foundation
 class Bindable<T> {
   typealias Listener = (T) -> Void
 
-  var value: T {
-    didSet {
-        DispatchQueue.main.async {
-            self.listener?(self.value)
-        }
+    var value: T {
+      didSet {
+          DispatchQueue.main.async {
+              self.listener?(self.value)
+          }
+      }
     }
-  }
   private var listener: Listener?
 
   init(_ value: T) {
