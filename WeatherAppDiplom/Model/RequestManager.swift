@@ -9,9 +9,9 @@ class RequestManager {
     var weatherViewModel = WeatherViewModel()
     
     
-    func sendDayForecast(town: String, complition: @escaping (ParseCurrentDay?) -> ()) {
+    func sendDayForecast(town: String, accessPoint: String, complition: @escaping (ParseCurrentDay?) -> ()) {
        
-        let unFormattedURL = "https://api.openweathermap.org/data/2.5/weather?\(weatherViewModel.accsessPoint)\(town)&appid=9447cdea74b8b95f4fc841ab07797377&units=metric"
+        let unFormattedURL = "https://api.openweathermap.org/data/2.5/weather?\(accessPoint)\(town)&appid=9447cdea74b8b95f4fc841ab07797377&units=metric"
         guard let url = URL(string: unFormattedURL) else {return}
         
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -29,9 +29,9 @@ class RequestManager {
         task.resume()
     }
 
-    func sendDailyForecast(town: String, complition: @escaping (ParseNextDays?)->()) {
+    func sendDailyForecast(town: String, accessPoint: String, complition: @escaping (ParseNextDays?)->()) {
 
-        let unFormattedURL = "https://api.openweathermap.org/data/2.5/forecast?\(weatherViewModel.accsessPoint)\(town)&appid=9447cdea74b8b95f4fc841ab07797377&units=metric"
+        let unFormattedURL = "https://api.openweathermap.org/data/2.5/forecast?\(accessPoint)\(town)&appid=9447cdea74b8b95f4fc841ab07797377&units=metric"
         guard let url = URL(string: unFormattedURL) else {return}
 
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in

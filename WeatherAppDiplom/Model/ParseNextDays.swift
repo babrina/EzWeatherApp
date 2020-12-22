@@ -64,7 +64,7 @@ struct MainClassNextDays: Codable {
 }
 
 struct RainNextDays: Codable {
-    let the3H: Double
+    let the3H: String?
 }
 
 struct SysNextDays: Codable {

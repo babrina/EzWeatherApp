@@ -31,8 +31,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBAction func locationButtonPressed(_ sender: UIButton) {
         guard let controller = self.storyboard?.instantiateViewController(withIdentifier: "WeatherViewController") as? WeatherViewController else {return}
-        weatherViewModel.accsessPoint = "lat=\(viewModel.lat)&lon=\(viewModel.lon)"
-        weatherViewModel.currentTown = ""
+        controller.accessPoint = "lat=\(viewModel.lat)&lon=\(viewModel.lon)"
+        controller.town = ""
         self.navigationController?.pushViewController(controller, animated: true)
     }
     //MARK: - Funcs

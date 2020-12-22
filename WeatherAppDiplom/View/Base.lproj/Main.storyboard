@@ -501,6 +501,16 @@
                                             <constraint firstItem="66s-9A-4Iy" firstAttribute="top" secondItem="SQE-JR-3dE" secondAttribute="top" id="t4E-fs-aBJ"/>
                                         </constraints>
                                     </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="HSz-fQ-eC1">
+                                        <rect key="frame" x="292" y="8" width="100" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="R4s-JI-qWh"/>
+                                            <constraint firstAttribute="height" constant="20" id="XEC-sy-hiT"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBlueColor"/>
                                 <constraints>
@@ -513,7 +523,9 @@
                                     <constraint firstAttribute="trailing" secondItem="SQE-JR-3dE" secondAttribute="trailing" id="clu-hh-Rnm"/>
                                     <constraint firstItem="SQE-JR-3dE" firstAttribute="leading" secondItem="1lD-z7-JYp" secondAttribute="leading" id="e4b-42-vUG"/>
                                     <constraint firstAttribute="trailing" secondItem="br5-so-Nle" secondAttribute="trailing" id="nxr-K1-ieL"/>
+                                    <constraint firstItem="HSz-fQ-eC1" firstAttribute="centerX" secondItem="9af-Ws-D4u" secondAttribute="centerX" id="oTb-y9-FKf"/>
                                     <constraint firstAttribute="height" constant="468" id="qZu-wZ-3Af"/>
+                                    <constraint firstItem="Ppg-bb-aeV" firstAttribute="top" secondItem="HSz-fQ-eC1" secondAttribute="bottom" constant="2" id="tvf-2s-w9g"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="et1-0Q-Z0b">
@@ -792,6 +804,7 @@
                     </view>
                     <connections>
                         <outlet property="cityLabel" destination="neY-te-h9V" id="N5A-vh-nsD"/>
+                        <outlet property="currentTimeLabel" destination="HSz-fQ-eC1" id="Kp3-Nc-nNZ"/>
                         <outlet property="daysView" destination="bwM-JB-VpX" id="B1Y-Ut-iVO"/>
                         <outlet property="feelLikeLabel" destination="7hr-3N-H7V" id="pIL-Qa-fCw"/>
                         <outlet property="feelView" destination="tpx-bk-Z1b" id="xe4-wx-jh3"/>

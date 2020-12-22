@@ -4,11 +4,13 @@ import Foundation
 class WeatherViewModel {
     //MARK: - VAR
     var currentTown: String = "Saint Petersburg"
-    var accsessPoint = "q="
+    var accessPoint = "q="
     var lat: Double = 59.8944
     var lon: Double = 30.2642
     //MARK: - LET
     let currentWeatherTemp: Bindable<String> = Bindable("")
+    let timeZone: Bindable<Int> = Bindable(0)
+    let currentTime: Bindable<Int> = Bindable(0)
     let currentWeatherHumidity: Bindable<Int> = Bindable(0)
     let currentWeatherName: Bindable<String> = Bindable("")
     let currentWeatherWind: Bindable<Int> = Bindable(0)
@@ -44,10 +46,11 @@ class WeatherViewModel {
     //MARK: - Funcs
     func setTown() {
         currentTown = currentTown.urlEncoded()!
+        
     }
     
     func loadForecast() {
-        RequestManager.shared.sendDayForecast(town: currentTown) { [weak self] object in
+        RequestManager.shared.sendDayForecast(town: currentTown, accessPoint: accessPoint) { [weak self] object in
             self?.currentWeatherTemp.value = String(Int(object?.main.temp ?? 0))
             self?.currentWeatherName.value = object?.name ?? ""
             self?.currentWeatherHumidity.value = Int(object?.main.humidity ?? 0)
@@ -57,8 +60,11 @@ class WeatherViewModel {
             self?.currentWeatherPicture.value = object?.weather[0].icon ?? ""
             self?.currentWeatherLat.value = object?.coord.lat ?? 0
             self?.currentWeatherLon.value = object?.coord.lon ?? 0
+            self?.timeZone.value = object?.timezone ?? 0
+            self?.currentTime.value = object?.dt ?? 0
+            
         }
-        RequestManager.shared.sendDailyForecast(town: currentTown) { [weak self] object in
+        RequestManager.shared.sendDailyForecast(town: currentTown, accessPoint: accessPoint) { [weak self] object in
             self?.plus3hours.value = object?.list[0].dt ?? 0
             self?.plus3hoursTemp.value = Int(object?.list[0].main.temp ?? 0)
             self?.plus3hoursImageView.value = object?.list[0].weather[0].icon ?? ""
@@ -68,21 +74,21 @@ class WeatherViewModel {
             self?.next9hours.value = object?.list[2].dt ?? 0
             self?.next9hoursTemp.value = Int(object?.list[2].main.temp ?? 0)
             self?.next9hoursImageView.value = object?.list[2].weather[0].icon ?? ""
-            self?.next12hours.value = object?.list[2].dt ?? 0
-            self?.next12hoursTemp.value = Int(object?.list[2].main.temp ?? 0)
-            self?.next12hoursImageView.value = object?.list[2].weather[0].icon ?? ""
+            self?.next12hours.value = object?.list[3].dt ?? 0
+            self?.next12hoursTemp.value = Int(object?.list[3].main.temp ?? 0)
+            self?.next12hoursImageView.value = object?.list[3].weather[0].icon ?? ""
             self?.tommorowLabel.value = object?.list[9].dt ?? 0
             self?.tommorowTempLabel.value = Int(object?.list[9].main.temp ?? 0)
-            self?.tommorowImage.value = object?.list[9].weather[0].icon ?? ""
+            self?.tommorowImage.value = String(object?.list[9].weather[0].icon?.dropLast() ?? "") + "d"
             self?.plusTwoDays.value = object?.list[17].dt ?? 0
             self?.plusTwoDaysTempLabel.value = Int(object?.list[17].main.temp ?? 0)
-            self?.plusTwoDaysImage.value = object?.list[17].weather[0].icon ?? ""
+            self?.plusTwoDaysImage.value = String(object?.list[17].weather[0].icon?.dropLast() ?? "") + "d"
             self?.plusThreeDays.value = object?.list[25].dt ?? 0
             self?.plusThreeDaysTemp.value = Int(object?.list[25].main.temp ?? 0)
-            self?.plusThreeDaysImage.value = object?.list[25].weather[0].icon ?? ""
+            self?.plusThreeDaysImage.value = String(object?.list[25].weather[0].icon?.dropLast() ?? "") + "d"
             self?.plusFourDays.value = object?.list[33].dt ?? 0
             self?.plusFourDaysTemp.value = Int(object?.list[33].main.temp ?? 0)
-            self?.plusFourDaysImage.value = object?.list[33].weather[0].icon ?? ""
+            self?.plusFourDaysImage.value = String(object?.list[33].weather[0].icon?.dropLast() ?? "") + "d"
         }
     }
 }
