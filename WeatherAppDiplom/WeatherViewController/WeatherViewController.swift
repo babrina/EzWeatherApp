@@ -85,10 +85,12 @@ class WeatherViewController: UIViewController {
     
     private func bindUI() {
         weatherViewModel.currentTime.bind { (currentTime) in
-            self.currentTimeLabel.text = String(self.getFormattedDate(input: Double(currentTime - self.weatherViewModel.timeZone.value), format: "HH:mm"))
+            self.currentTimeLabel.text = self.weatherViewModel.fixTime()
+            
             let timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(60), repeats: true) { (_) in
+                var nextMinute = self.weatherViewModel.addMinuteToTime()
                 UIView.animate(withDuration: 0.3) {
-                    self.currentTimeLabel.text = String(self.getFormattedDate(input: Double((currentTime + 60) - self.weatherViewModel.timeZone.value), format: "HH:mm"))
+                    self.currentTimeLabel.text = nextMinute
                 }
             }
         }
@@ -111,79 +113,79 @@ class WeatherViewController: UIViewController {
             self.feelLikeLabel.text = String(currentWeatherFellsLike) + "°"
         }
         weatherViewModel.currentWeatherPicture.bind { (currentWeatherPicture) in
-            self.weatherImage.downloaded(from: "https://openweathermap.org/img/wn/\(currentWeatherPicture)@4x.png")
+            self.weatherImage.downloaded(from: "https://openweathermap.org/img/wn/\(currentWeatherPicture)@4x.png", contentMode: .scaleAspectFill)
         }
         weatherViewModel.plus3hours.bind { (plus3hours) in
-            self.plus3hoursLabel.text = String(self.getFormattedDate(input: Double(plus3hours - self.weatherViewModel.timeZone.value), format: "HH:mm"))
+            self.plus3hoursLabel.text = String(self.weatherViewModel.getFormattedDate(input: Double(plus3hours), format: "HH:mm"))
         }
         weatherViewModel.plus3hoursTemp.bind { (plus3hoursTemp) in
             self.plus3hoursTempLabel.text = String(plus3hoursTemp) + "°"
         }
         weatherViewModel.plus3hoursImageView.bind { (plus3hoursImageView) in
-            self.plus3hoursImageView.downloaded(from: "https://openweathermap.org/img/wn/\(plus3hoursImageView)@4x.png")
+            self.plus3hoursImageView.downloaded(from: "https://openweathermap.org/img/wn/\(plus3hoursImageView)@4x.png", contentMode: .scaleAspectFill)
         }
         weatherViewModel.next6hours.bind { (next6hours) in
-            self.next6hoursLabel.text = String(self.getFormattedDate(input: Double(next6hours - self.weatherViewModel.timeZone.value), format: "HH:mm"))
+            self.next6hoursLabel.text = String(self.weatherViewModel.getFormattedDate(input: Double(next6hours), format: "HH:mm"))
         }
         weatherViewModel.next6hoursTemp.bind { (next6hoursTemp) in
             self.next6hoursTempLabel.text = String(next6hoursTemp) + "°"
         }
         weatherViewModel.next6hoursImageView.bind { (next6hoursImageView) in
-            self.next6hoursImageView.downloaded(from: "https://openweathermap.org/img/wn/\(next6hoursImageView)@4x.png")
+            self.next6hoursImageView.downloaded(from: "https://openweathermap.org/img/wn/\(next6hoursImageView)@4x.png", contentMode: .scaleAspectFill)
         }
         weatherViewModel.next9hours.bind { (next9hours) in
-            self.next9hoursLabel.text = String(self.getFormattedDate(input: Double(next9hours - self.weatherViewModel.timeZone.value), format: "HH:mm"))
+            self.next9hoursLabel.text = String(self.weatherViewModel.getFormattedDate(input: Double(next9hours), format: "HH:mm"))
         }
         weatherViewModel.next9hoursTemp.bind { (next9hoursTemp) in
             self.next9hoursTempLabel.text = String(next9hoursTemp) + "°"
         }
         weatherViewModel.next9hoursImageView.bind { (next9hoursImageView) in
-            self.next9hoursImageView.downloaded(from: "https://openweathermap.org/img/wn/\(next9hoursImageView)@4x.png")
+            self.next9hoursImageView.downloaded(from: "https://openweathermap.org/img/wn/\(next9hoursImageView)@4x.png", contentMode: .scaleAspectFill)
         }
         weatherViewModel.next12hours.bind { (next12hours) in
-            self.next12hoursLabel.text = String(self.getFormattedDate(input: Double(next12hours - self.weatherViewModel.timeZone.value), format: "HH:mm"))
+            self.next12hoursLabel.text = String(self.weatherViewModel.getFormattedDate(input: Double(next12hours), format: "HH:mm"))
         }
         weatherViewModel.next12hoursTemp.bind { (next12hoursTemp) in
             self.next12hoursTempLabel.text = String(next12hoursTemp) + "°"
         }
         weatherViewModel.next12hoursImageView.bind { (next12hoursImageView) in
-            self.next12hoursImageView.downloaded(from: "https://openweathermap.org/img/wn/\(next12hoursImageView)@4x.png")
+            self.next12hoursImageView.downloaded(from: "https://openweathermap.org/img/wn/\(next12hoursImageView)@4x.png", contentMode: .scaleAspectFill)
         }
         weatherViewModel.tommorowLabel.bind { (tommorowLabel) in
-            self.tommorowLabel.text = String(self.getFormattedDate(input: Double(tommorowLabel)))
+            self.tommorowLabel.text = String(self.weatherViewModel.getFormattedDate(input: Double(tommorowLabel)))
         }
         weatherViewModel.tommorowTempLabel.bind { (tommorowTempLabel) in
             self.tommorowTempLabel.text = String(tommorowTempLabel) + "°"
         }
         weatherViewModel.tommorowImage.bind { (tommorowImage) in
-            self.tommorowImageView.downloaded(from: "https://openweathermap.org/img/wn/\(tommorowImage)@4x.png")
+            self.tommorowImageView.downloaded(from: "https://openweathermap.org/img/wn/\(tommorowImage)@4x.png", contentMode: .scaleAspectFit)
         }
         weatherViewModel.plusTwoDays.bind { (plusTwoDays) in
-            self.plusTwoDaysLabel.text = String(self.getFormattedDate(input: Double(plusTwoDays)))
+            self.plusTwoDaysLabel.text = String(self.weatherViewModel.getFormattedDate(input: Double(plusTwoDays)))
         }
         weatherViewModel.plusTwoDaysTempLabel.bind { (plusTwoDaysTempLabel) in
             self.plusTwoDaysTempLabel.text = String(plusTwoDaysTempLabel) + "°"
         }
         weatherViewModel.plusTwoDaysImage.bind { (plusTwoDaysImage) in
-            self.plusTwoDaysImageView.downloaded(from: "https://openweathermap.org/img/wn/\(plusTwoDaysImage)@4x.png")
+            self.plusTwoDaysImageView.downloaded(from: "https://openweathermap.org/img/wn/\(plusTwoDaysImage)@4x.png", contentMode: .scaleAspectFit)
         }
         weatherViewModel.plusThreeDays.bind { (plusThreeDays) in
-            self.plusThreeDaysLabel.text = String(self.getFormattedDate(input: Double(plusThreeDays)))
+            self.plusThreeDaysLabel.text = String(self.weatherViewModel.getFormattedDate(input: Double(plusThreeDays)))
         }
         weatherViewModel.plusThreeDaysTemp.bind { (plusThreeDaysTemp) in
             self.plusThreeDaysTemp.text = String(plusThreeDaysTemp) + "°"
         }
         weatherViewModel.plusThreeDaysImage.bind { (plusThreeDaysImage) in
-            self.plusThreeDaysImageView.downloaded(from: "https://openweathermap.org/img/wn/\(plusThreeDaysImage)@4x.png")
+            self.plusThreeDaysImageView.downloaded(from: "https://openweathermap.org/img/wn/\(plusThreeDaysImage)@4x.png", contentMode: .scaleAspectFit)
         }
         weatherViewModel.plusFourDays.bind { (plusFourDays) in
-            self.plusFourDaysLabel.text = String(self.getFormattedDate(input: Double(plusFourDays)))
+            self.plusFourDaysLabel.text = String(self.weatherViewModel.getFormattedDate(input: Double(plusFourDays)))
         }
         weatherViewModel.plusFourDaysTemp.bind { (plusFourDaysTemp) in
             self.plusFourDaysTemp.text = String(plusFourDaysTemp) + "°"
         }
         weatherViewModel.plusFourDaysImage.bind { (plusFourDaysImage) in
-            self.plusFourDaysImageView.downloaded(from: "https://openweathermap.org/img/wn/\(plusFourDaysImage)@4x.png")
+            self.plusFourDaysImageView.downloaded(from: "https://openweathermap.org/img/wn/\(plusFourDaysImage)@4x.png", contentMode: .scaleAspectFit)
         }
     }
     
@@ -198,18 +200,10 @@ class WeatherViewController: UIViewController {
         hoursView.dropShadow()
         daysView.dropShadow()
     }
-    
-    func getFormattedDate(input: Double,format: String = "EEEE, d") -> String {
-        let date = Date(timeIntervalSince1970: input)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        dateFormatter.timeZone = .current
-        return dateFormatter.string(from: date)
-    }
 }
 
 extension UIImageView {
-    func downloaded(from url: URL, contentMode mode: UIView.ContentMode = .scaleAspectFit) {
+    func downloaded(from url: URL, contentMode mode: UIView.ContentMode) {
         contentMode = mode
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard
@@ -225,7 +219,7 @@ extension UIImageView {
         .resume()
     }
     
-    func downloaded(from link: String, contentMode mode: UIView.ContentMode = .scaleAspectFit) {
+    func downloaded(from link: String, contentMode mode: UIView.ContentMode) {
         guard let url = URL(string: link) else { return }
         downloaded(from: url, contentMode: mode)
     }

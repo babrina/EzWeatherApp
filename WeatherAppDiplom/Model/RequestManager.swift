@@ -6,9 +6,6 @@ class RequestManager {
     private init() {}
     
     
-    var weatherViewModel = WeatherViewModel()
-    
-    
     func sendDayForecast(town: String, accessPoint: String, complition: @escaping (ParseCurrentDay?) -> ()) {
        
         let unFormattedURL = "https://api.openweathermap.org/data/2.5/weather?\(accessPoint)\(town)&appid=9447cdea74b8b95f4fc841ab07797377&units=metric"

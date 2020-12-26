@@ -49,6 +49,17 @@ class WeatherViewModel {
         
     }
     
+    
+    func addMinuteToTime() -> String {
+        var nextMinute = String(self.getFormattedDate(input: Double(self.currentTime.value + 60), format: "HH:mm"))
+        return nextMinute
+    }
+    
+    func fixTime() -> String {
+        let time = String(self.getFormattedDate(input: Double(self.currentTime.value), format: "HH:mm"))
+        return time
+    }
+    
     func loadForecast() {
         RequestManager.shared.sendDayForecast(town: currentTown, accessPoint: accessPoint) { [weak self] object in
             self?.currentWeatherTemp.value = String(Int(object?.main.temp ?? 0))
@@ -60,7 +71,6 @@ class WeatherViewModel {
             self?.currentWeatherPicture.value = object?.weather[0].icon ?? ""
             self?.currentWeatherLat.value = object?.coord.lat ?? 0
             self?.currentWeatherLon.value = object?.coord.lon ?? 0
-            self?.timeZone.value = object?.timezone ?? 0
             self?.currentTime.value = object?.dt ?? 0
             
         }
@@ -77,18 +87,26 @@ class WeatherViewModel {
             self?.next12hours.value = object?.list[3].dt ?? 0
             self?.next12hoursTemp.value = Int(object?.list[3].main.temp ?? 0)
             self?.next12hoursImageView.value = object?.list[3].weather[0].icon ?? ""
-            self?.tommorowLabel.value = object?.list[9].dt ?? 0
-            self?.tommorowTempLabel.value = Int(object?.list[9].main.temp ?? 0)
-            self?.tommorowImage.value = String(object?.list[9].weather[0].icon?.dropLast() ?? "") + "d"
+            self?.tommorowLabel.value = object?.list[11].dt ?? 0
+            self?.tommorowTempLabel.value = Int(object?.list[11].main.temp ?? 0)
+            self?.tommorowImage.value = object?.list[11].weather[0].icon ?? ""
             self?.plusTwoDays.value = object?.list[17].dt ?? 0
             self?.plusTwoDaysTempLabel.value = Int(object?.list[17].main.temp ?? 0)
-            self?.plusTwoDaysImage.value = String(object?.list[17].weather[0].icon?.dropLast() ?? "") + "d"
+            self?.plusTwoDaysImage.value = object?.list[17].weather[0].icon ?? ""
             self?.plusThreeDays.value = object?.list[25].dt ?? 0
             self?.plusThreeDaysTemp.value = Int(object?.list[25].main.temp ?? 0)
-            self?.plusThreeDaysImage.value = String(object?.list[25].weather[0].icon?.dropLast() ?? "") + "d"
+            self?.plusThreeDaysImage.value = object?.list[25].weather[0].icon ?? ""
             self?.plusFourDays.value = object?.list[33].dt ?? 0
             self?.plusFourDaysTemp.value = Int(object?.list[33].main.temp ?? 0)
-            self?.plusFourDaysImage.value = String(object?.list[33].weather[0].icon?.dropLast() ?? "") + "d"
+            self?.plusFourDaysImage.value = object?.list[33].weather[0].icon ?? ""
         }
+    }
+    
+    func getFormattedDate(input: Double,format: String = "EEEE, d") -> String {
+        let date = Date(timeIntervalSince1970: input)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        dateFormatter.timeZone = .current
+        return dateFormatter.string(from: date)
     }
 }

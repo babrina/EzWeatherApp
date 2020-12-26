@@ -1,0 +1,26 @@
+import UIKit
+
+class FavoriteViewModel {
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}
