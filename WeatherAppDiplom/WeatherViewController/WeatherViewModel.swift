@@ -43,6 +43,7 @@ class WeatherViewModel {
     let plusFourDays: Bindable<Int> = Bindable(0)
     let plusFourDaysImage: Bindable<String> = Bindable("")
     let plusFourDaysTemp: Bindable<Int> = Bindable(0)
+    let country: Bindable<String> = Bindable("")
     //MARK: - Funcs
     func setTown() {
         currentTown = currentTown.urlEncoded()!
@@ -51,12 +52,12 @@ class WeatherViewModel {
     
     
     func addMinuteToTime() -> String {
-        var nextMinute = String(self.getFormattedDate(input: Double(self.currentTime.value + 60), format: "HH:mm"))
+        var nextMinute = String(self.getFormattedTime(input: Double(self.currentTime.value + 60)))
         return nextMinute
     }
     
     func fixTime() -> String {
-        let time = String(self.getFormattedDate(input: Double(self.currentTime.value), format: "HH:mm"))
+        let time = String(self.getFormattedTime(input: Double(self.currentTime.value)))
         return time
     }
     
@@ -72,7 +73,8 @@ class WeatherViewModel {
             self?.currentWeatherLat.value = object?.coord.lat ?? 0
             self?.currentWeatherLon.value = object?.coord.lon ?? 0
             self?.currentTime.value = object?.dt ?? 0
-            
+            self?.timeZone.value = object?.timezone ?? 0
+            self?.country.value = object?.sys.country ?? ""
         }
         RequestManager.shared.sendDailyForecast(town: currentTown, accessPoint: accessPoint) { [weak self] object in
             self?.plus3hours.value = object?.list[0].dt ?? 0
@@ -87,26 +89,37 @@ class WeatherViewModel {
             self?.next12hours.value = object?.list[3].dt ?? 0
             self?.next12hoursTemp.value = Int(object?.list[3].main.temp ?? 0)
             self?.next12hoursImageView.value = object?.list[3].weather[0].icon ?? ""
-            self?.tommorowLabel.value = object?.list[11].dt ?? 0
-            self?.tommorowTempLabel.value = Int(object?.list[11].main.temp ?? 0)
-            self?.tommorowImage.value = object?.list[11].weather[0].icon ?? ""
-            self?.plusTwoDays.value = object?.list[17].dt ?? 0
-            self?.plusTwoDaysTempLabel.value = Int(object?.list[17].main.temp ?? 0)
-            self?.plusTwoDaysImage.value = object?.list[17].weather[0].icon ?? ""
-            self?.plusThreeDays.value = object?.list[25].dt ?? 0
-            self?.plusThreeDaysTemp.value = Int(object?.list[25].main.temp ?? 0)
-            self?.plusThreeDaysImage.value = object?.list[25].weather[0].icon ?? ""
-            self?.plusFourDays.value = object?.list[33].dt ?? 0
-            self?.plusFourDaysTemp.value = Int(object?.list[33].main.temp ?? 0)
-            self?.plusFourDaysImage.value = object?.list[33].weather[0].icon ?? ""
+            self?.tommorowLabel.value = object?.list[10].dt ?? 0
+            self?.tommorowTempLabel.value = Int(object?.list[10].main.temp ?? 0)
+            self?.tommorowImage.value = object?.list[10].weather[0].icon ?? ""
+            self?.plusTwoDays.value = object?.list[18].dt ?? 0
+            self?.plusTwoDaysTempLabel.value = Int(object?.list[18].main.temp ?? 0)
+            self?.plusTwoDaysImage.value = object?.list[18].weather[0].icon ?? ""
+            self?.plusThreeDays.value = object?.list[26].dt ?? 0
+            self?.plusThreeDaysTemp.value = Int(object?.list[26].main.temp ?? 0)
+            self?.plusThreeDaysImage.value = object?.list[26].weather[0].icon ?? ""
+            self?.plusFourDays.value = object?.list[34].dt ?? 0
+            self?.plusFourDaysTemp.value = Int(object?.list[34].main.temp ?? 0)
+            self?.plusFourDaysImage.value = object?.list[34].weather[0].icon ?? ""
         }
     }
     
-    func getFormattedDate(input: Double,format: String = "EEEE, d") -> String {
+    func getFormattedTime(input: Double) -> String {
         let date = Date(timeIntervalSince1970: input)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        dateFormatter.timeZone = .current
-        return dateFormatter.string(from: date)
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeStyle = DateFormatter.Style.short //Set time style
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: timeZone.value)
+            let localDate = dateFormatter.string(from: date)
+        return localDate
     }
+    
+    func getFormattedDate(input: Double) -> String {
+        let date = Date(timeIntervalSince1970: input)
+            let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM d"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: timeZone.value)
+            let localDate = dateFormatter.string(from: date)
+        return localDate
+    }
+
 }

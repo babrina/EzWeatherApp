@@ -116,7 +116,7 @@ class WeatherViewController: UIViewController {
             self.weatherImage.downloaded(from: "https://openweathermap.org/img/wn/\(currentWeatherPicture)@4x.png", contentMode: .scaleAspectFill)
         }
         weatherViewModel.plus3hours.bind { (plus3hours) in
-            self.plus3hoursLabel.text = String(self.weatherViewModel.getFormattedDate(input: Double(plus3hours), format: "HH:mm"))
+            self.plus3hoursLabel.text = String(self.weatherViewModel.getFormattedTime(input: Double(plus3hours)))
         }
         weatherViewModel.plus3hoursTemp.bind { (plus3hoursTemp) in
             self.plus3hoursTempLabel.text = String(plus3hoursTemp) + "°"
@@ -125,7 +125,7 @@ class WeatherViewController: UIViewController {
             self.plus3hoursImageView.downloaded(from: "https://openweathermap.org/img/wn/\(plus3hoursImageView)@4x.png", contentMode: .scaleAspectFill)
         }
         weatherViewModel.next6hours.bind { (next6hours) in
-            self.next6hoursLabel.text = String(self.weatherViewModel.getFormattedDate(input: Double(next6hours), format: "HH:mm"))
+            self.next6hoursLabel.text = String(self.weatherViewModel.getFormattedTime(input: Double(next6hours)))
         }
         weatherViewModel.next6hoursTemp.bind { (next6hoursTemp) in
             self.next6hoursTempLabel.text = String(next6hoursTemp) + "°"
@@ -134,7 +134,7 @@ class WeatherViewController: UIViewController {
             self.next6hoursImageView.downloaded(from: "https://openweathermap.org/img/wn/\(next6hoursImageView)@4x.png", contentMode: .scaleAspectFill)
         }
         weatherViewModel.next9hours.bind { (next9hours) in
-            self.next9hoursLabel.text = String(self.weatherViewModel.getFormattedDate(input: Double(next9hours), format: "HH:mm"))
+            self.next9hoursLabel.text = String(self.weatherViewModel.getFormattedTime(input: Double(next9hours)))
         }
         weatherViewModel.next9hoursTemp.bind { (next9hoursTemp) in
             self.next9hoursTempLabel.text = String(next9hoursTemp) + "°"
@@ -143,7 +143,7 @@ class WeatherViewController: UIViewController {
             self.next9hoursImageView.downloaded(from: "https://openweathermap.org/img/wn/\(next9hoursImageView)@4x.png", contentMode: .scaleAspectFill)
         }
         weatherViewModel.next12hours.bind { (next12hours) in
-            self.next12hoursLabel.text = String(self.weatherViewModel.getFormattedDate(input: Double(next12hours), format: "HH:mm"))
+            self.next12hoursLabel.text = String(self.weatherViewModel.getFormattedTime(input: Double(next12hours)))
         }
         weatherViewModel.next12hoursTemp.bind { (next12hoursTemp) in
             self.next12hoursTempLabel.text = String(next12hoursTemp) + "°"
