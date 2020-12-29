@@ -10,6 +10,7 @@ class Bindable<T> {
           }
       }
     }
+    
   private var listener: Listener?
 
   init(_ value: T) {

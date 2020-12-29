@@ -5,8 +5,9 @@ class WeatherViewModel {
     //MARK: - VAR
     var currentTown: String = "Saint Petersburg"
     var accessPoint = "q="
-    var lat: Double = 59.8944
-    var lon: Double = 30.2642
+    var myLat: Double = 59.8944
+    var myLon: Double = 30.2642
+    
     //MARK: - LET
     let currentWeatherTemp: Bindable<String> = Bindable("")
     let timeZone: Bindable<Int> = Bindable(0)
@@ -44,12 +45,11 @@ class WeatherViewModel {
     let plusFourDaysImage: Bindable<String> = Bindable("")
     let plusFourDaysTemp: Bindable<Int> = Bindable(0)
     let country: Bindable<String> = Bindable("")
+    
     //MARK: - Funcs
     func setTown() {
         currentTown = currentTown.urlEncoded()!
-        
     }
-    
     
     func addMinuteToTime() -> String {
         var nextMinute = String(self.getFormattedTime(input: Double(self.currentTime.value + 60)))
@@ -62,45 +62,46 @@ class WeatherViewModel {
     }
     
     func loadForecast() {
-        RequestManager.shared.sendDayForecast(town: currentTown, accessPoint: accessPoint) { [weak self] object in
-            self?.currentWeatherTemp.value = String(Int(object?.main.temp ?? 0))
-            self?.currentWeatherName.value = object?.name ?? ""
-            self?.currentWeatherHumidity.value = Int(object?.main.humidity ?? 0)
-            self?.currentWeatherWind.value = Int(object?.wind.speed ?? 0)
-            self?.currentWeatherPressure.value = Int(object?.main.pressure ?? 0)
-            self?.currentWeatherFellsLike.value = Int(object?.main.feelsLike ?? 0)
-            self?.currentWeatherPicture.value = object?.weather[0].icon ?? ""
-            self?.currentWeatherLat.value = object?.coord.lat ?? 0
-            self?.currentWeatherLon.value = object?.coord.lon ?? 0
-            self?.currentTime.value = object?.dt ?? 0
-            self?.timeZone.value = object?.timezone ?? 0
-            self?.country.value = object?.sys.country ?? ""
+        RequestManager.shared.sendDayForecast(town: currentTown, accessPoint: accessPoint) { [weak self] current in
+            self?.currentWeatherTemp.value = String(Int(current?.main.temp ?? 0))
+            self?.currentWeatherName.value = current?.name ?? ""
+            self?.currentWeatherHumidity.value = Int(current?.main.humidity ?? 0)
+            self?.currentWeatherWind.value = Int(current?.wind.speed ?? 0)
+            self?.currentWeatherPressure.value = Int(current?.main.pressure ?? 0)
+            self?.currentWeatherFellsLike.value = Int(current?.main.feelsLike ?? 0)
+            self?.currentWeatherPicture.value = current?.weather[0].icon ?? ""
+            self?.myLat = current?.coord.lat ?? 0
+            self?.myLon = current?.coord.lon ?? 0
+            self?.currentTime.value = current?.dt ?? 0
+            self?.timeZone.value = current?.timezone ?? 0
+            self?.country.value = current?.sys.country ?? ""
         }
-        RequestManager.shared.sendDailyForecast(town: currentTown, accessPoint: accessPoint) { [weak self] object in
-            self?.plus3hours.value = object?.list[0].dt ?? 0
-            self?.plus3hoursTemp.value = Int(object?.list[0].main.temp ?? 0)
-            self?.plus3hoursImageView.value = object?.list[0].weather[0].icon ?? ""
-            self?.next6hours.value = object?.list[1].dt ?? 0
-            self?.next6hoursTemp.value = Int(object?.list[1].main.temp ?? 0)
-            self?.next6hoursImageView.value = object?.list[1].weather[0].icon ?? ""
-            self?.next9hours.value = object?.list[2].dt ?? 0
-            self?.next9hoursTemp.value = Int(object?.list[2].main.temp ?? 0)
-            self?.next9hoursImageView.value = object?.list[2].weather[0].icon ?? ""
-            self?.next12hours.value = object?.list[3].dt ?? 0
-            self?.next12hoursTemp.value = Int(object?.list[3].main.temp ?? 0)
-            self?.next12hoursImageView.value = object?.list[3].weather[0].icon ?? ""
-            self?.tommorowLabel.value = object?.list[10].dt ?? 0
-            self?.tommorowTempLabel.value = Int(object?.list[10].main.temp ?? 0)
-            self?.tommorowImage.value = object?.list[10].weather[0].icon ?? ""
-            self?.plusTwoDays.value = object?.list[18].dt ?? 0
-            self?.plusTwoDaysTempLabel.value = Int(object?.list[18].main.temp ?? 0)
-            self?.plusTwoDaysImage.value = object?.list[18].weather[0].icon ?? ""
-            self?.plusThreeDays.value = object?.list[26].dt ?? 0
-            self?.plusThreeDaysTemp.value = Int(object?.list[26].main.temp ?? 0)
-            self?.plusThreeDaysImage.value = object?.list[26].weather[0].icon ?? ""
-            self?.plusFourDays.value = object?.list[34].dt ?? 0
-            self?.plusFourDaysTemp.value = Int(object?.list[34].main.temp ?? 0)
-            self?.plusFourDaysImage.value = object?.list[34].weather[0].icon ?? ""
+               
+        RequestManager.shared.sendOneCallForecast(lat: String(myLat), lon: String(myLon)) { [weak self] oneCall in
+            self?.plus3hours.value = Int(oneCall?.hourly[1].dt ?? 0)
+            self?.plus3hoursTemp.value = Int(oneCall?.hourly[1].temp ?? 0)
+            self?.plus3hoursImageView.value = oneCall?.hourly[1].weather[0].icon ?? ""
+            self?.next6hours.value = Int(oneCall?.hourly[2].dt ?? 0)
+            self?.next6hoursTemp.value = Int(oneCall?.hourly[2].temp ?? 0)
+            self?.next6hoursImageView.value = oneCall?.hourly[2].weather[0].icon ?? ""
+            self?.next9hours.value = Int(oneCall?.hourly[3].dt ?? 0)
+            self?.next9hoursTemp.value = Int(oneCall?.hourly[3].temp ?? 0)
+            self?.next9hoursImageView.value = oneCall?.hourly[3].weather[0].icon ?? ""
+            self?.next12hours.value = Int(oneCall?.hourly[4].dt ?? 0)
+            self?.next12hoursTemp.value = Int(oneCall?.hourly[4].temp ?? 0)
+            self?.next12hoursImageView.value = oneCall?.hourly[4].weather[0].icon ?? ""
+            self?.tommorowTempLabel.value = Int(oneCall?.daily[1].temp.day ?? 0)
+            self?.tommorowImage.value = oneCall?.daily[1].weather[0].icon ?? ""
+            self?.tommorowLabel.value = Int(oneCall?.daily[1].dt ?? 0)
+            self?.plusTwoDays.value = Int(oneCall?.daily[2].dt ?? 0)
+            self?.plusTwoDaysTempLabel.value = Int(oneCall?.daily[2].temp.day ?? 0)
+            self?.plusTwoDaysImage.value = oneCall?.daily[2].weather[0].icon ?? ""
+            self?.plusThreeDays.value = Int(oneCall?.daily[3].dt ?? 0)
+            self?.plusThreeDaysTemp.value = Int(oneCall?.daily[3].temp.day ?? 0)
+            self?.plusThreeDaysImage.value = oneCall?.daily[3].weather[0].icon ?? ""
+            self?.plusFourDays.value = Int(oneCall?.daily[4].dt ?? 0)
+            self?.plusFourDaysTemp.value = Int(oneCall?.daily[4].temp.day ?? 0)
+            self?.plusFourDaysImage.value = oneCall?.daily[4].weather[0].icon ?? ""
         }
     }
     
@@ -121,5 +122,4 @@ class WeatherViewModel {
             let localDate = dateFormatter.string(from: date)
         return localDate
     }
-
 }

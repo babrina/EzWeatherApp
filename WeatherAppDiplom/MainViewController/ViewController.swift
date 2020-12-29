@@ -33,6 +33,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         guard let controller = self.storyboard?.instantiateViewController(withIdentifier: "WeatherViewController") as? WeatherViewController else {return}
         controller.accessPoint = "lat=\(viewModel.lat)&lon=\(viewModel.lon)"
         controller.town = ""
+        controller.myLat = viewModel.lat
+        controller.myLon = viewModel.lon
         self.navigationController?.pushViewController(controller, animated: true)
     }
     //MARK: - Funcs

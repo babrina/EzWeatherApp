@@ -60,24 +60,30 @@ class WeatherViewController: UIViewController {
     //MARK: - VAR
     var town: String = "Saint Petersburg"
     var accessPoint: String = "q="
-    let currentWeather = CurrentWeather()
-    let dailyWeather = NextDaysWeather()
     let weatherViewModel = WeatherViewModel()
+    var myLat: Double = 0
+    var myLon: Double = 0
     
+    //MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         weatherViewModel.currentTown = town
         setUp()
     }
-    
+    //MARK: - Actions
+
     @IBAction func backButtonPressed(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
     
-    
+    //MARK: - Func
+
     func setUp() {
         weatherViewModel.setTown()
         weatherViewModel.accessPoint = accessPoint
+        weatherViewModel.myLat = myLat
+        weatherViewModel.myLon = myLon
         interfaceShadowsAndCorners()
         weatherViewModel.loadForecast()
         bindUI()
