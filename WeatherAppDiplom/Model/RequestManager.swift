@@ -1,4 +1,6 @@
 import UIKit
+import Alamofire
+
 
 class RequestManager {
     
@@ -21,6 +23,12 @@ class RequestManager {
             }
         }
         task.resume()
+    }
+    
+    
+    
+    func alamo() {
+        
     }
 
     func sendOneCallForecast(lat: String, lon: String, complition: @escaping (OneCallWelcome?)->()) {

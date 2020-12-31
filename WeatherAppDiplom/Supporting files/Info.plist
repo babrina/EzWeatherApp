@@ -23,9 +23,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Please allow us to find your location tor current location weather function.</string>
+	<string>Please give access to your current location so that we can show you the weather at your location. This will allow you to find the proper city you are in and the correct weather.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Please allow us to find your location tor current location weather function.</string>
+	<string>Please give access to your current location so that we can show you the weather at your location. This will allow you to find the proper city you are in and the correct weather.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
