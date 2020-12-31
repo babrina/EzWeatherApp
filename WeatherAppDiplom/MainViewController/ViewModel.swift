@@ -11,6 +11,7 @@ class ViewModel: UIViewController, CLLocationManagerDelegate, UITextFieldDelegat
     private let locationManager = CLLocationManager()
     var searchCity: String = ""
     var citiesArray: [String] = []
+    var filteredData: [String] = []
     
     //MARK: - Funcs
     func locationManagerSetup() {

@@ -8,6 +8,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var locationButton: UIButton!
+    @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     //MARK: VAR
     var viewModel = ViewModel()
@@ -18,17 +21,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         firstSetup()
     }
+    
     //MARK: - Actions
     @IBAction func searchButtonPressed(_ sender: UIButton) {
         guard let controller = self.storyboard?.instantiateViewController(withIdentifier: "WeatherViewController") as? WeatherViewController else {return}
-        controller.town = viewModel.searchCity
+        controller.town = searchBar.searchTextField.text ?? "Saint Petersburg"
         self.navigationController?.pushViewController(controller, animated: true)
     }
-    
-    @IBAction func tapRecognized(_ sender: UITapGestureRecognizer) {
-        self.view.endEditing(true)
-    }
-    
+        
     @IBAction func locationButtonPressed(_ sender: UIButton) {
         guard let controller = self.storyboard?.instantiateViewController(withIdentifier: "WeatherViewController") as? WeatherViewController else {return}
         controller.accessPoint = "lat=\(viewModel.lat)&lon=\(viewModel.lon)"
@@ -38,38 +38,82 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         self.navigationController?.pushViewController(controller, animated: true)
     }
     //MARK: - Funcs
-    func setupTapRecognize() {
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(tapRecognized(_:)))
-        self.view.addGestureRecognizer(recognizer)
-    }
-    
     func firstSetup() {
+        self.hideKeyboardWhenTappedAround()
+        tableView.isHidden = true
+        tableView.cornerRadius()
+        searchButton.isUserInteractionEnabled = false
         viewModel.jsonCity()
         viewModel.locationManagerSetup()
         searchView.cornerRadius()
         searchView.dropShadow()
-        addSearchBarWithAutoComplete()
-        setupTapRecognize()
-    }
-    
-    func addSearchBarWithAutoComplete() {
-        let textfield = AutocompleteField(frame: CGRect(x: 10, y: 13, width: 264, height: 40))
-        textfield.placeholder = "City"
-        textfield.suggestions = viewModel.citiesArray
-        textfield.delegate = self
-        textfield.autocorrectionType = .no
-        self.searchView.addSubview(textfield)
-        textfield.anchor(top: searchView.topAnchor, paddingTop: 5, bottom: searchView.bottomAnchor, paddingBottom: 5, left: searchView.leftAnchor, paddingLeft: 15, right: locationButton.leftAnchor, paddingRight: 3, width: 264, height: 36)
+        viewModel.filteredData = viewModel.citiesArray
     }
 }
 //MARK: - Extensions
-extension ViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ tf: UITextField) -> Bool {
-        // fill out the rest when user hits return
-        let textField = tf as! AutocompleteField
-        textField.text = textField.suggestion
-        viewModel.searchCity = textField.text!
-        textField.resignFirstResponder()
-        return true
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.filteredData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableViewCell") as? SearchTableViewCell else {
+            return UITableViewCell()
+        }
+        cell.configure(name: viewModel.filteredData[indexPath.row])
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! SearchTableViewCell?
+        if #available(iOS 13.0, *) {
+            searchBar.searchTextField.text = cell?.cityNameLabel.text
+            self.viewModel.filteredData = []
+            self.tableView.reloadData()
+            UIView.animate(withDuration: 0.3) {
+                self.tableView.isHidden = true
+            }
+            if viewModel.citiesArray.contains(searchBar.searchTextField.text ?? "Saint Petersburg") {
+                searchButton.isUserInteractionEnabled = true
+            }
+        }
+    }
+}
+
+extension ViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.filteredData = []
+        if searchText == "" {
+            UIView.animate(withDuration: 0.3) {
+                self.tableView.isHidden = true
+            }
+            searchButton.isUserInteractionEnabled = false
+        } else {
+            UIView.animate(withDuration: 0.3) {
+                self.tableView.isHidden = false
+            }
+            for cities in viewModel.citiesArray {
+                if cities.lowercased().contains(searchText.lowercased()) {
+                    viewModel.filteredData.append(cities)
+                }
+            }
+            self.tableView.reloadData()
+        }
+    }
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

@@ -75,33 +75,33 @@ class WeatherViewModel {
             self?.currentTime.value = current?.dt ?? 0
             self?.timeZone.value = current?.timezone ?? 0
             self?.country.value = current?.sys.country ?? ""
-        }
-               
-        RequestManager.shared.sendOneCallForecast(lat: String(myLat), lon: String(myLon)) { [weak self] oneCall in
-            self?.plus3hours.value = Int(oneCall?.hourly[1].dt ?? 0)
-            self?.plus3hoursTemp.value = Int(oneCall?.hourly[1].temp ?? 0)
-            self?.plus3hoursImageView.value = oneCall?.hourly[1].weather[0].icon ?? ""
-            self?.next6hours.value = Int(oneCall?.hourly[2].dt ?? 0)
-            self?.next6hoursTemp.value = Int(oneCall?.hourly[2].temp ?? 0)
-            self?.next6hoursImageView.value = oneCall?.hourly[2].weather[0].icon ?? ""
-            self?.next9hours.value = Int(oneCall?.hourly[3].dt ?? 0)
-            self?.next9hoursTemp.value = Int(oneCall?.hourly[3].temp ?? 0)
-            self?.next9hoursImageView.value = oneCall?.hourly[3].weather[0].icon ?? ""
-            self?.next12hours.value = Int(oneCall?.hourly[4].dt ?? 0)
-            self?.next12hoursTemp.value = Int(oneCall?.hourly[4].temp ?? 0)
-            self?.next12hoursImageView.value = oneCall?.hourly[4].weather[0].icon ?? ""
-            self?.tommorowTempLabel.value = Int(oneCall?.daily[1].temp.day ?? 0)
-            self?.tommorowImage.value = oneCall?.daily[1].weather[0].icon ?? ""
-            self?.tommorowLabel.value = Int(oneCall?.daily[1].dt ?? 0)
-            self?.plusTwoDays.value = Int(oneCall?.daily[2].dt ?? 0)
-            self?.plusTwoDaysTempLabel.value = Int(oneCall?.daily[2].temp.day ?? 0)
-            self?.plusTwoDaysImage.value = oneCall?.daily[2].weather[0].icon ?? ""
-            self?.plusThreeDays.value = Int(oneCall?.daily[3].dt ?? 0)
-            self?.plusThreeDaysTemp.value = Int(oneCall?.daily[3].temp.day ?? 0)
-            self?.plusThreeDaysImage.value = oneCall?.daily[3].weather[0].icon ?? ""
-            self?.plusFourDays.value = Int(oneCall?.daily[4].dt ?? 0)
-            self?.plusFourDaysTemp.value = Int(oneCall?.daily[4].temp.day ?? 0)
-            self?.plusFourDaysImage.value = oneCall?.daily[4].weather[0].icon ?? ""
+            
+            RequestManager.shared.sendOneCallForecast(lat: String(self?.myLat ?? 0), lon: String(self?.myLon ?? 0)) { [weak self] oneCall in
+                self?.plus3hours.value = Int(oneCall?.hourly[1].dt ?? 0)
+                self?.plus3hoursTemp.value = Int(oneCall?.hourly[1].temp ?? 0)
+                self?.plus3hoursImageView.value = oneCall?.hourly[1].weather[0].icon ?? ""
+                self?.next6hours.value = Int(oneCall?.hourly[2].dt ?? 0)
+                self?.next6hoursTemp.value = Int(oneCall?.hourly[2].temp ?? 0)
+                self?.next6hoursImageView.value = oneCall?.hourly[2].weather[0].icon ?? ""
+                self?.next9hours.value = Int(oneCall?.hourly[3].dt ?? 0)
+                self?.next9hoursTemp.value = Int(oneCall?.hourly[3].temp ?? 0)
+                self?.next9hoursImageView.value = oneCall?.hourly[3].weather[0].icon ?? ""
+                self?.next12hours.value = Int(oneCall?.hourly[4].dt ?? 0)
+                self?.next12hoursTemp.value = Int(oneCall?.hourly[4].temp ?? 0)
+                self?.next12hoursImageView.value = oneCall?.hourly[4].weather[0].icon ?? ""
+                self?.tommorowTempLabel.value = Int(oneCall?.daily[1].temp.day ?? 0)
+                self?.tommorowImage.value = oneCall?.daily[1].weather[0].icon ?? ""
+                self?.tommorowLabel.value = Int(oneCall?.daily[1].dt ?? 0)
+                self?.plusTwoDays.value = Int(oneCall?.daily[2].dt ?? 0)
+                self?.plusTwoDaysTempLabel.value = Int(oneCall?.daily[2].temp.day ?? 0)
+                self?.plusTwoDaysImage.value = oneCall?.daily[2].weather[0].icon ?? ""
+                self?.plusThreeDays.value = Int(oneCall?.daily[3].dt ?? 0)
+                self?.plusThreeDaysTemp.value = Int(oneCall?.daily[3].temp.day ?? 0)
+                self?.plusThreeDaysImage.value = oneCall?.daily[3].weather[0].icon ?? ""
+                self?.plusFourDays.value = Int(oneCall?.daily[4].dt ?? 0)
+                self?.plusFourDaysTemp.value = Int(oneCall?.daily[4].temp.day ?? 0)
+                self?.plusFourDaysImage.value = oneCall?.daily[4].weather[0].icon ?? ""
+            }
         }
     }
     
