@@ -10,6 +10,8 @@
 		910062A2257C2DB100834A39 /* weatherappcitiescleaned.json in Resources */ = {isa = PBXBuildFile; fileRef = 910062A1257C2DB100834A39 /* weatherappcitiescleaned.json */; };
 		9108A2FE259E166C00889E57 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9108A2FD259E166C00889E57 /* SearchTableViewCell.swift */; };
 		9108A305259E408D00889E57 /* AlamofireNetworkActivityIndicator in Frameworks */ = {isa = PBXBuildFile; productRef = 9108A304259E408D00889E57 /* AlamofireNetworkActivityIndicator */; };
+		910AC6A8259FC37B00F086A1 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 910AC6A7259FC37B00F086A1 /* SkeletonView */; };
+		910AC6AF25A2058D00F086A1 /* FavoriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910AC6AE25A2058D00F086A1 /* FavoriteCollectionViewCell.swift */; };
 		91401363256F9DE900BC6A24 /* AutocompleteField in Frameworks */ = {isa = PBXBuildFile; productRef = 91401362256F9DE900BC6A24 /* AutocompleteField */; };
 		9150B54B256FCD7800C32223 /* CityJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9150B54A256FCD7800C32223 /* CityJSON.swift */; };
 		9150B54E256FCE3B00C32223 /* Citys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9150B54D256FCE3B00C32223 /* Citys.swift */; };
@@ -22,11 +24,8 @@
 		919884B22568FD3E00AC5A05 /* ParseCurrentDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919884B12568FD3E00AC5A05 /* ParseCurrentDay.swift */; };
 		919884C82568FDC800AC5A05 /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919884C72568FDC800AC5A05 /* CurrentWeather.swift */; };
 		919884CB256945DF00AC5A05 /* NextDaysWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919884CA256945DF00AC5A05 /* NextDaysWeather.swift */; };
-		919884D22569477B00AC5A05 /* ParseNextDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919884D12569477B00AC5A05 /* ParseNextDays.swift */; };
+		91A93A7525A3A25400E28023 /* FavoriteCity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A93A7425A3A25400E28023 /* FavoriteCity.swift */; };
 		91BD20552599EF23005815E3 /* OneCallApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BD20542599EF23005815E3 /* OneCallApi.swift */; };
-		91D50E4B25920D9200BF2B36 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D50E4A25920D9200BF2B36 /* FavoriteViewController.swift */; };
-		91D50E4E25920DB100BF2B36 /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D50E4D25920DB100BF2B36 /* FavoriteViewModel.swift */; };
-		91D50E572592109D00BF2B36 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D50E562592109D00BF2B36 /* FavoriteTableViewCell.swift */; };
 		91FC1292258DDD7D0012748A /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FC1291258DDD7D0012748A /* Bindable.swift */; };
 		91FC1296258DDD970012748A /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FC1295258DDD970012748A /* ViewModel.swift */; };
 		91FC129A258DE48A0012748A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FC1299258DE48A0012748A /* Extensions.swift */; };
@@ -40,6 +39,7 @@
 		7D256B775291131A5A677674 /* Pods_WeatherAppDiplom.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeatherAppDiplom.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		910062A1257C2DB100834A39 /* weatherappcitiescleaned.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = weatherappcitiescleaned.json; sourceTree = "<group>"; };
 		9108A2FD259E166C00889E57 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		910AC6AE25A2058D00F086A1 /* FavoriteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCollectionViewCell.swift; sourceTree = "<group>"; };
 		9150B54A256FCD7800C32223 /* CityJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityJSON.swift; sourceTree = "<group>"; };
 		9150B54D256FCE3B00C32223 /* Citys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Citys.swift; sourceTree = "<group>"; };
 		919884932568FC9F00AC5A05 /* WeatherAppDiplom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherAppDiplom.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,11 +53,8 @@
 		919884B12568FD3E00AC5A05 /* ParseCurrentDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseCurrentDay.swift; sourceTree = "<group>"; };
 		919884C72568FDC800AC5A05 /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
 		919884CA256945DF00AC5A05 /* NextDaysWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextDaysWeather.swift; sourceTree = "<group>"; };
-		919884D12569477B00AC5A05 /* ParseNextDays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseNextDays.swift; sourceTree = "<group>"; };
+		91A93A7425A3A25400E28023 /* FavoriteCity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCity.swift; sourceTree = "<group>"; };
 		91BD20542599EF23005815E3 /* OneCallApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneCallApi.swift; sourceTree = "<group>"; };
-		91D50E4A25920D9200BF2B36 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
-		91D50E4D25920DB100BF2B36 /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
-		91D50E562592109D00BF2B36 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 		91FC1291258DDD7D0012748A /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		91FC1295258DDD970012748A /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		91FC1299258DE48A0012748A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -71,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				910AC6A8259FC37B00F086A1 /* SkeletonView in Frameworks */,
 				9108A305259E408D00889E57 /* AlamofireNetworkActivityIndicator in Frameworks */,
 				91401363256F9DE900BC6A24 /* AutocompleteField in Frameworks */,
 				A7688975A01C52B2029DDD79 /* Pods_WeatherAppDiplom.framework in Frameworks */,
@@ -101,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				9108A2FD259E166C00889E57 /* SearchTableViewCell.swift */,
+				910AC6AE25A2058D00F086A1 /* FavoriteCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -155,10 +154,8 @@
 		919884952568FC9F00AC5A05 /* WeatherAppDiplom */ = {
 			isa = PBXGroup;
 			children = (
-				91D50E502592105A00BF2B36 /* Cells */,
 				91FC1298258DE47B0012748A /* Extensions */,
 				91FC12A2258DF7BF0012748A /* Model */,
-				91D50E4925920D5E00BF2B36 /* FavoriteViewController */,
 				911879D0258FFB0B00E4CC70 /* View */,
 				91FC12A9258E05A10012748A /* WeatherViewController */,
 				91FC1290258DDD430012748A /* MainViewController */,
@@ -176,23 +173,6 @@
 				919884CA256945DF00AC5A05 /* NextDaysWeather.swift */,
 			);
 			path = WeatherClasses;
-			sourceTree = "<group>";
-		};
-		91D50E4925920D5E00BF2B36 /* FavoriteViewController */ = {
-			isa = PBXGroup;
-			children = (
-				91D50E4A25920D9200BF2B36 /* FavoriteViewController.swift */,
-				91D50E4D25920DB100BF2B36 /* FavoriteViewModel.swift */,
-			);
-			path = FavoriteViewController;
-			sourceTree = "<group>";
-		};
-		91D50E502592105A00BF2B36 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				91D50E562592109D00BF2B36 /* FavoriteTableViewCell.swift */,
-			);
-			path = Cells;
 			sourceTree = "<group>";
 		};
 		91FC1290258DDD430012748A /* MainViewController */ = {
@@ -217,10 +197,10 @@
 			isa = PBXGroup;
 			children = (
 				919884B12568FD3E00AC5A05 /* ParseCurrentDay.swift */,
-				919884D12569477B00AC5A05 /* ParseNextDays.swift */,
 				91FC1291258DDD7D0012748A /* Bindable.swift */,
 				91FC12A3258DF7D10012748A /* RequestManager.swift */,
 				91BD20542599EF23005815E3 /* OneCallApi.swift */,
+				91A93A7425A3A25400E28023 /* FavoriteCity.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -255,6 +235,7 @@
 			packageProductDependencies = (
 				91401362256F9DE900BC6A24 /* AutocompleteField */,
 				9108A304259E408D00889E57 /* AlamofireNetworkActivityIndicator */,
+				910AC6A7259FC37B00F086A1 /* SkeletonView */,
 			);
 			productName = WeatherAppDiplom;
 			productReference = 919884932568FC9F00AC5A05 /* WeatherAppDiplom.app */;
@@ -287,6 +268,7 @@
 				91401361256F9DE900BC6A24 /* XCRemoteSwiftPackageReference "AutocompleteField" */,
 				913C2615257127AC00E3AFB7 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				9108A303259E408D00889E57 /* XCRemoteSwiftPackageReference "AlamofireNetworkActivityIndicator" */,
+				910AC6A6259FC37B00F086A1 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = 919884942568FC9F00AC5A05 /* Products */;
 			projectDirPath = "";
@@ -362,9 +344,6 @@
 				91FC129A258DE48A0012748A /* Extensions.swift in Sources */,
 				919884C82568FDC800AC5A05 /* CurrentWeather.swift in Sources */,
 				9198849B2568FC9F00AC5A05 /* ViewController.swift in Sources */,
-				91D50E4B25920D9200BF2B36 /* FavoriteViewController.swift in Sources */,
-				919884D22569477B00AC5A05 /* ParseNextDays.swift in Sources */,
-				91D50E572592109D00BF2B36 /* FavoriteTableViewCell.swift in Sources */,
 				91FC1296258DDD970012748A /* ViewModel.swift in Sources */,
 				919884CB256945DF00AC5A05 /* NextDaysWeather.swift in Sources */,
 				919884AD2568FCD200AC5A05 /* WeatherViewController.swift in Sources */,
@@ -373,10 +352,11 @@
 				919884972568FC9F00AC5A05 /* AppDelegate.swift in Sources */,
 				91FC12A4258DF7D10012748A /* RequestManager.swift in Sources */,
 				91BD20552599EF23005815E3 /* OneCallApi.swift in Sources */,
+				91A93A7525A3A25400E28023 /* FavoriteCity.swift in Sources */,
 				9150B54E256FCE3B00C32223 /* Citys.swift in Sources */,
 				91FC1292258DDD7D0012748A /* Bindable.swift in Sources */,
-				91D50E4E25920DB100BF2B36 /* FavoriteViewModel.swift in Sources */,
 				91FC12AB258E05C60012748A /* WeatherViewModel.swift in Sources */,
+				910AC6AF25A2058D00F086A1 /* FavoriteCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,7 +505,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X2J5K4ATY6;
 				INFOPLIST_FILE = "WeatherAppDiplom/Supporting files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -533,6 +513,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = AndreyZamiralov.SextantWeather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -547,7 +528,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X2J5K4ATY6;
 				INFOPLIST_FILE = "WeatherAppDiplom/Supporting files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -555,6 +536,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = AndreyZamiralov.SextantWeather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -594,6 +576,14 @@
 				minimumVersion = 3.1.0;
 			};
 		};
+		910AC6A6259FC37B00F086A1 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.11.0;
+			};
+		};
 		913C2615257127AC00E3AFB7 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -617,6 +607,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9108A303259E408D00889E57 /* XCRemoteSwiftPackageReference "AlamofireNetworkActivityIndicator" */;
 			productName = AlamofireNetworkActivityIndicator;
+		};
+		910AC6A7259FC37B00F086A1 /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 910AC6A6259FC37B00F086A1 /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
 		};
 		91401362256F9DE900BC6A24 /* AutocompleteField */ = {
 			isa = XCSwiftPackageProductDependency;

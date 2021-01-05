@@ -1,10 +1,3 @@
-//
-//  SearchTableViewCell.swift
-//  WeatherAppDiplom
-//
-//  Created by Андрей Замиралов on 31.12.2020.
-//
-
 import UIKit
 
 class SearchTableViewCell: UITableViewCell {
@@ -13,7 +6,6 @@ class SearchTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     func configure(name: String) {

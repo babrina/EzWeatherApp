@@ -16,6 +16,7 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var feelView: UIView!
     @IBOutlet weak var hoursView: UIView!
     @IBOutlet weak var menuView: UIView!
+    @IBOutlet weak var favoriteButton: UIButton!
     
     //MARK: - Next weather
     
@@ -63,22 +64,48 @@ class WeatherViewController: UIViewController {
     let weatherViewModel = WeatherViewModel()
     var myLat: Double = 0
     var myLon: Double = 0
-    
+    var favoriteCityArray: [FavoriteCity] = []
+    var currentCity = ""
     //MARK: - Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.gray.withAlphaComponent(0.6))
         weatherViewModel.currentTown = town
         setUp()
+        removeBlurWithGDC()
+        loadCityArray()
     }
     //MARK: - Actions
-
+    
     @IBAction func backButtonPressed(_ sender: UIButton) {
+        NotificationCenter.default.post(name: Notification.Name.backButtonPressed, object: nil, userInfo: nil)
         self.navigationController?.popViewController(animated: true)
+    }
+    @IBAction func favoriteButtonPressed(_ sender: UIButton) {
+        sender.isSelected.toggle()
+        if sender.isSelected == true {
+            weatherViewModel.addCityToFavorite()
+            } else {
+                weatherViewModel.removeFromFavorite()
+        }
+        UserDefaults.standard.set(encodable: weatherViewModel.favoriteCityArray, forKey: "saved")
     }
     
     //MARK: - Func
-
+    
+    func loadCityArray() {
+        if let favoriteCityArray = UserDefaults.standard.value([FavoriteCity].self, forKey: "saved") {
+            self.weatherViewModel.favoriteCityArray = favoriteCityArray
+        }
+    }
+    
+    func loadFavoriteButtonState() {
+        if weatherViewModel.checkFavorite() {
+            self.favoriteButton.isSelected = true
+        }
+    }
+    
     func setUp() {
         weatherViewModel.setTown()
         weatherViewModel.accessPoint = accessPoint
@@ -89,10 +116,16 @@ class WeatherViewController: UIViewController {
         bindUI()
     }
     
+    func removeBlurWithGDC() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            self.view.activityStopAnimating()
+            self.loadFavoriteButtonState()
+        }
+    }
+    
     private func bindUI() {
         weatherViewModel.currentTime.bind { (currentTime) in
             self.currentTimeLabel.text = self.weatherViewModel.fixTime()
-            
             let timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(60), repeats: true) { (_) in
                 var nextMinute = self.weatherViewModel.addMinuteToTime()
                 UIView.animate(withDuration: 0.3) {
@@ -105,6 +138,7 @@ class WeatherViewController: UIViewController {
         }
         weatherViewModel.currentWeatherName.bind { (currentWeatherName) in
             self.cityLabel.text = currentWeatherName
+            self.currentCity = currentWeatherName
         }
         weatherViewModel.currentWeatherHumidity.bind { (currentWeatherHumidity) in
             self.humidityLabel.text = String(currentWeatherHumidity) + "%"
@@ -208,25 +242,6 @@ class WeatherViewController: UIViewController {
     }
 }
 
-extension UIImageView {
-    func downloaded(from url: URL, contentMode mode: UIView.ContentMode) {
-        contentMode = mode
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard
-                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
-                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
-                let data = data, error == nil,
-                let image = UIImage(data: data)
-            else { return }
-            DispatchQueue.main.async() { [weak self] in
-                self?.image = image
-            }
-        }
-        .resume()
-    }
-    
-    func downloaded(from link: String, contentMode mode: UIView.ContentMode) {
-        guard let url = URL(string: link) else { return }
-        downloaded(from: url, contentMode: mode)
-    }
+extension Notification.Name {
+    static let backButtonPressed = Notification.Name("backButtonPressed")
 }

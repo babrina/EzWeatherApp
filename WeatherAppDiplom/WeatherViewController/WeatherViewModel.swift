@@ -1,5 +1,6 @@
 import UIKit
 import Foundation
+import SkeletonView
 
 class WeatherViewModel {
     //MARK: - VAR
@@ -7,7 +8,8 @@ class WeatherViewModel {
     var accessPoint = "q="
     var myLat: Double = 59.8944
     var myLon: Double = 30.2642
-    
+    var favoriteCityArray: [FavoriteCity] = []
+    var currentTemp = 0
     //MARK: - LET
     let currentWeatherTemp: Bindable<String> = Bindable("")
     let timeZone: Bindable<Int> = Bindable(0)
@@ -47,6 +49,29 @@ class WeatherViewModel {
     let country: Bindable<String> = Bindable("")
     
     //MARK: - Funcs
+    func removeFromFavorite() {
+        if let index = self.favoriteCityArray.firstIndex(where: {$0.name == currentWeatherName.value}) {
+            self.favoriteCityArray.remove(at: index)
+        }
+    }
+    
+    func checkFavorite() -> Bool {
+        if self.favoriteCityArray.contains(where: {$0.name == self.currentWeatherName.value}) {
+        return true
+        }
+        return false
+    }
+    
+    func addCityToFavorite() {
+        if !favoriteCityArray.contains(where: {$0.name == currentWeatherName.value}) {
+            self.favoriteCityArray.append(.init(lat: String(myLat),
+                                                lon: String(myLon),
+                                                name: currentWeatherName.value,
+                                                temp: String(currentWeatherTemp.value),
+                                                icon: currentWeatherPicture.value))
+        }
+    }
+    
     func setTown() {
         currentTown = currentTown.urlEncoded()!
     }
@@ -75,7 +100,6 @@ class WeatherViewModel {
             self?.currentTime.value = current?.dt ?? 0
             self?.timeZone.value = current?.timezone ?? 0
             self?.country.value = current?.sys.country ?? ""
-            
             RequestManager.shared.sendOneCallForecast(lat: String(self?.myLat ?? 0), lon: String(self?.myLon ?? 0)) { [weak self] oneCall in
                 self?.plus3hours.value = Int(oneCall?.hourly[1].dt ?? 0)
                 self?.plus3hoursTemp.value = Int(oneCall?.hourly[1].temp ?? 0)
@@ -107,19 +131,19 @@ class WeatherViewModel {
     
     func getFormattedTime(input: Double) -> String {
         let date = Date(timeIntervalSince1970: input)
-            let dateFormatter = DateFormatter()
-            dateFormatter.timeStyle = DateFormatter.Style.short //Set time style
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = DateFormatter.Style.short //Set time style
         dateFormatter.timeZone = TimeZone(secondsFromGMT: timeZone.value)
-            let localDate = dateFormatter.string(from: date)
+        let localDate = dateFormatter.string(from: date)
         return localDate
     }
     
     func getFormattedDate(input: Double) -> String {
         let date = Date(timeIntervalSince1970: input)
-            let dateFormatter = DateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM d"
         dateFormatter.timeZone = TimeZone(secondsFromGMT: timeZone.value)
-            let localDate = dateFormatter.string(from: date)
+        let localDate = dateFormatter.string(from: date)
         return localDate
     }
 }

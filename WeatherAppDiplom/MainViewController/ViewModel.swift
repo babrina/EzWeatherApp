@@ -12,8 +12,15 @@ class ViewModel: UIViewController, CLLocationManagerDelegate, UITextFieldDelegat
     var searchCity: String = ""
     var citiesArray: [String] = []
     var filteredData: [String] = []
-    
+    var favoriteCityArray: [FavoriteCity] = []
     //MARK: - Funcs
+    
+    func loadCityArray() {
+        if let favoriteCityArray = UserDefaults.standard.value([FavoriteCity].self, forKey: "saved") {
+        self.favoriteCityArray = favoriteCityArray
+        }
+    }
+    
     func locationManagerSetup() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
