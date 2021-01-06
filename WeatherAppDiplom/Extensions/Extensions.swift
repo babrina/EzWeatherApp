@@ -13,7 +13,6 @@ extension UIView {
         layer.shadowOffset = CGSize.zero
         layer.shadowRadius = 10
         layer.shadowPath = UIBezierPath(rect: bounds).cgPath
-        layer.shouldRasterize = true
     }
     
     func anchor(top: NSLayoutYAxisAnchor?, paddingTop: CGFloat, bottom: NSLayoutYAxisAnchor?, paddingBottom: CGFloat, left: NSLayoutXAxisAnchor?, paddingLeft: CGFloat, right: NSLayoutXAxisAnchor?, paddingRight: CGFloat, width: CGFloat, height: CGFloat) {

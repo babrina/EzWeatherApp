@@ -26,6 +26,11 @@
 	<string>Please give access to your current location so that we can show you the weather at your location. This will allow you to find the proper city you are in and the correct weather.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Please give access to your current location so that we can show you the weather at your location. This will allow you to find the proper city you are in and the correct weather.</string>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+	</dict>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -36,7 +41,13 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIRequiresFullScreen</key>
+	<true/>
 	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
