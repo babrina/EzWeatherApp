@@ -16,7 +16,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     //MARK: VAR
     var viewModel = ViewModel()
     var weatherViewModel = WeatherViewModel()
-    var favoriteCityArray: [FavoriteCity] = []
     
     //MARK: Lifecycle Func
     override func viewDidLoad() {
@@ -147,13 +146,14 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavoriteCollectionViewCell", for: indexPath) as? FavoriteCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .white, secondaryColor: .systemBlue), animation: nil, transition: .crossDissolve(0.3))
+        cell.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .white, secondaryColor: .systemYellow), animation: nil, transition: .crossDissolve(1))
         cell.cornerRadiusDecorate()
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             cell.stopSkeletonAnimation()
             cell.hideSkeleton()
         }
-        cell.configure(name: viewModel.favoriteCityArray[indexPath.row].name, temp: viewModel.favoriteCityArray[indexPath.row].temp, icon: viewModel.favoriteCityArray[indexPath.row].icon, lat: viewModel.favoriteCityArray[indexPath.row].lat, lon: viewModel.favoriteCityArray[indexPath.row].lon)
+        cell.configure(with: viewModel.favoriteCityArray[indexPath.row])
        return cell
     }
     

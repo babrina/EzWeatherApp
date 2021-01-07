@@ -2,7 +2,6 @@ import UIKit
 
 class WeatherViewController: UIViewController {
     //MARK: - OUTLETS
-    
     @IBOutlet weak var currentTimeLabel: UILabel!
     @IBOutlet weak var weatherImage: UIImageView!
     @IBOutlet weak var cityLabel: UILabel!
@@ -15,48 +14,9 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var daysView: UIView!
     @IBOutlet weak var feelView: UIView!
     @IBOutlet weak var hoursView: UIView!
-    @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var favoriteButton: UIButton!
-    
-    //MARK: - Next weather
-    
-    @IBOutlet weak var plus3hoursLabel: UILabel!
-    @IBOutlet weak var plus3hoursTempLabel: UILabel!
-    @IBOutlet weak var plus3hoursImageView: UIImageView!
-    
-    @IBOutlet weak var next6hoursLabel: UILabel!
-    @IBOutlet weak var next6hoursTempLabel: UILabel!
-    @IBOutlet weak var next6hoursImageView: UIImageView!
-    
-    @IBOutlet weak var next9hoursLabel: UILabel!
-    @IBOutlet weak var next9hoursTempLabel: UILabel!
-    @IBOutlet weak var next9hoursImageView: UIImageView!
-    
-    @IBOutlet weak var next12hoursLabel: UILabel!
-    @IBOutlet weak var next12hoursTempLabel: UILabel!
-    @IBOutlet weak var next12hoursImageView: UIImageView!
-    
-    
-    //MARK: - Six days weather
-    
-    @IBOutlet weak var tommorowLabel: UILabel!
-    @IBOutlet weak var tommorowTempLabel: UILabel!
-    @IBOutlet weak var tommorowImageView: UIImageView!
-    
-    @IBOutlet weak var plusTwoDaysLabel: UILabel!
-    @IBOutlet weak var plusTwoDaysImageView: UIImageView!
-    @IBOutlet weak var plusTwoDaysTempLabel: UILabel!
-    
-    
-    @IBOutlet weak var plusThreeDaysLabel: UILabel!
-    @IBOutlet weak var plusThreeDaysTemp: UILabel!
-    @IBOutlet weak var plusThreeDaysImageView: UIImageView!
-    
-    @IBOutlet weak var plusFourDaysLabel: UILabel!
-    @IBOutlet weak var plusFourDaysTemp: UILabel!
-    @IBOutlet weak var plusFourDaysImageView: UIImageView!
-    
-    
+    @IBOutlet weak var daysTableView: UITableView!
+    @IBOutlet weak var hoursCollectionView: UICollectionView!
     
     //MARK: - VAR
     var town: String = "Saint Petersburg"
@@ -66,18 +26,20 @@ class WeatherViewController: UIViewController {
     var myLon: Double = 0
     var favoriteCityArray: [FavoriteCity] = []
     var currentCity = ""
-    //MARK: - Lifecycle
+    var detailMyCity = OneCallWelcome()
     
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.gray.withAlphaComponent(0.6))
         weatherViewModel.currentTown = town
         setUp()
+        bindUI()
         removeBlurWithGDC()
-        loadCityArray()
+        weatherViewModel.loadCityArray()
     }
-    //MARK: - Actions
     
+    //MARK: - Actions
     @IBAction func backButtonPressed(_ sender: UIButton) {
         NotificationCenter.default.post(name: Notification.Name.backButtonPressed, object: nil, userInfo: nil)
         self.navigationController?.popViewController(animated: true)
@@ -93,13 +55,6 @@ class WeatherViewController: UIViewController {
     }
     
     //MARK: - Func
-    
-    func loadCityArray() {
-        if let favoriteCityArray = UserDefaults.standard.value([FavoriteCity].self, forKey: "saved") {
-            self.weatherViewModel.favoriteCityArray = favoriteCityArray
-        }
-    }
-    
     func loadFavoriteButtonState() {
         if weatherViewModel.checkFavorite() {
             self.favoriteButton.isSelected = true
@@ -112,8 +67,8 @@ class WeatherViewController: UIViewController {
         weatherViewModel.myLat = myLat
         weatherViewModel.myLon = myLon
         interfaceShadowsAndCorners()
-        weatherViewModel.loadForecast()
-        bindUI()
+        weatherViewModel.loadForecast(with: detailMyCity)
+        
     }
     
     func removeBlurWithGDC() {
@@ -153,95 +108,81 @@ class WeatherViewController: UIViewController {
             self.feelLikeLabel.text = String(currentWeatherFellsLike) + "°"
         }
         weatherViewModel.currentWeatherPicture.bind { (currentWeatherPicture) in
-            self.weatherImage.downloaded(from: "https://openweathermap.org/img/wn/\(currentWeatherPicture)@4x.png", contentMode: .scaleAspectFill)
+            self.weatherImage.image = UIImage(named: "\(currentWeatherPicture).png")
         }
-        weatherViewModel.plus3hours.bind { (plus3hours) in
-            self.plus3hoursLabel.text = String(self.weatherViewModel.getFormattedTime(input: Double(plus3hours)))
+        weatherViewModel.dailyArray.bind { [weak self] dailyArray in
+            self?.daysTableView.reloadData()
+            self?.hoursCollectionView.reloadData()
+            
         }
-        weatherViewModel.plus3hoursTemp.bind { (plus3hoursTemp) in
-            self.plus3hoursTempLabel.text = String(plus3hoursTemp) + "°"
-        }
-        weatherViewModel.plus3hoursImageView.bind { (plus3hoursImageView) in
-            self.plus3hoursImageView.downloaded(from: "https://openweathermap.org/img/wn/\(plus3hoursImageView)@4x.png", contentMode: .scaleAspectFit)
-        }
-        weatherViewModel.next6hours.bind { (next6hours) in
-            self.next6hoursLabel.text = String(self.weatherViewModel.getFormattedTime(input: Double(next6hours)))
-        }
-        weatherViewModel.next6hoursTemp.bind { (next6hoursTemp) in
-            self.next6hoursTempLabel.text = String(next6hoursTemp) + "°"
-        }
-        weatherViewModel.next6hoursImageView.bind { (next6hoursImageView) in
-            self.next6hoursImageView.downloaded(from: "https://openweathermap.org/img/wn/\(next6hoursImageView)@4x.png", contentMode: .scaleAspectFit)
-        }
-        weatherViewModel.next9hours.bind { (next9hours) in
-            self.next9hoursLabel.text = String(self.weatherViewModel.getFormattedTime(input: Double(next9hours)))
-        }
-        weatherViewModel.next9hoursTemp.bind { (next9hoursTemp) in
-            self.next9hoursTempLabel.text = String(next9hoursTemp) + "°"
-        }
-        weatherViewModel.next9hoursImageView.bind { (next9hoursImageView) in
-            self.next9hoursImageView.downloaded(from: "https://openweathermap.org/img/wn/\(next9hoursImageView)@4x.png", contentMode: .scaleAspectFit)
-        }
-        weatherViewModel.next12hours.bind { (next12hours) in
-            self.next12hoursLabel.text = String(self.weatherViewModel.getFormattedTime(input: Double(next12hours)))
-        }
-        weatherViewModel.next12hoursTemp.bind { (next12hoursTemp) in
-            self.next12hoursTempLabel.text = String(next12hoursTemp) + "°"
-        }
-        weatherViewModel.next12hoursImageView.bind { (next12hoursImageView) in
-            self.next12hoursImageView.downloaded(from: "https://openweathermap.org/img/wn/\(next12hoursImageView)@4x.png", contentMode: .scaleAspectFit)
-        }
-        weatherViewModel.tommorowLabel.bind { (tommorowLabel) in
-            self.tommorowLabel.text = String(self.weatherViewModel.getFormattedDate(input: Double(tommorowLabel)))
-        }
-        weatherViewModel.tommorowTempLabel.bind { (tommorowTempLabel) in
-            self.tommorowTempLabel.text = String(tommorowTempLabel) + "°"
-        }
-        weatherViewModel.tommorowImage.bind { (tommorowImage) in
-            self.tommorowImageView.downloaded(from: "https://openweathermap.org/img/wn/\(tommorowImage)@4x.png", contentMode: .scaleAspectFit)
-        }
-        weatherViewModel.plusTwoDays.bind { (plusTwoDays) in
-            self.plusTwoDaysLabel.text = String(self.weatherViewModel.getFormattedDate(input: Double(plusTwoDays)))
-        }
-        weatherViewModel.plusTwoDaysTempLabel.bind { (plusTwoDaysTempLabel) in
-            self.plusTwoDaysTempLabel.text = String(plusTwoDaysTempLabel) + "°"
-        }
-        weatherViewModel.plusTwoDaysImage.bind { (plusTwoDaysImage) in
-            self.plusTwoDaysImageView.downloaded(from: "https://openweathermap.org/img/wn/\(plusTwoDaysImage)@4x.png", contentMode: .scaleAspectFit)
-        }
-        weatherViewModel.plusThreeDays.bind { (plusThreeDays) in
-            self.plusThreeDaysLabel.text = String(self.weatherViewModel.getFormattedDate(input: Double(plusThreeDays)))
-        }
-        weatherViewModel.plusThreeDaysTemp.bind { (plusThreeDaysTemp) in
-            self.plusThreeDaysTemp.text = String(plusThreeDaysTemp) + "°"
-        }
-        weatherViewModel.plusThreeDaysImage.bind { (plusThreeDaysImage) in
-            self.plusThreeDaysImageView.downloaded(from: "https://openweathermap.org/img/wn/\(plusThreeDaysImage)@4x.png", contentMode: .scaleAspectFit)
-        }
-        weatherViewModel.plusFourDays.bind { (plusFourDays) in
-            self.plusFourDaysLabel.text = String(self.weatherViewModel.getFormattedDate(input: Double(plusFourDays)))
-        }
-        weatherViewModel.plusFourDaysTemp.bind { (plusFourDaysTemp) in
-            self.plusFourDaysTemp.text = String(plusFourDaysTemp) + "°"
-        }
-        weatherViewModel.plusFourDaysImage.bind { (plusFourDaysImage) in
-            self.plusFourDaysImageView.downloaded(from: "https://openweathermap.org/img/wn/\(plusFourDaysImage)@4x.png", contentMode: .scaleAspectFit)
-        }
+        
     }
     
     func interfaceShadowsAndCorners() {
-        menuView.cornerRadius()
-        menuView.dropShadow()
         weatherView.cornerRadius()
         weatherView.dropShadow()
         daysView.cornerRadius()
         feelView.cornerRadius()
-        hoursView.cornerRadius()
-        hoursView.dropShadow()
         daysView.dropShadow()
     }
 }
 
 extension Notification.Name {
     static let backButtonPressed = Notification.Name("backButtonPressed")
+}
+
+
+extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return weatherViewModel.dailyArray.value.first?.daily?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DailyTableViewCell") as? DailyTableViewCell else {
+            return UITableViewCell()
+        }
+        cell.configure(with: weatherViewModel.dailyArray.value.first?.daily?[indexPath.row])
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+     
+}
+
+
+extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 12
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HorlyCollectionViewCell", for: indexPath) as? HorlyCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        cell.configure(time: String(weatherViewModel.getFormattedTime(input: Double(weatherViewModel.dailyArray.value.first?.hourly?[indexPath.row].dt ?? 0))), temp: String(Int(weatherViewModel.dailyArray.value.first?.hourly?[indexPath.row].temp ?? 0)), icon:  weatherViewModel.dailyArray.value.first?.hourly?[indexPath.row].weather?.first?.icon ?? "")
+        cell.cornerRadius()
+        collectionView.showsHorizontalScrollIndicator = false
+            return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let side = collectionView.frame.size.height - 5
+        let width = collectionView.frame.size.height / 1.2
+        return CGSize(width: width, height: side)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
 }

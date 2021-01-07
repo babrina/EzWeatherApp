@@ -20,8 +20,8 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
             do {
                 let object = try JSONDecoder().decode(OneCallWelcome.self, from: data)
                 DispatchQueue.main.async {
-                    self.weatherImageView.downloaded(from: "https://openweathermap.org/img/wn/\(object.current.weather[0].icon)@4x.png", contentMode: .scaleAspectFit)
-                    self.tempLabel.text = String(Int(object.current.temp)) + "°"
+                    self.weatherImageView.image = UIImage(named: "\(object.current?.weather?.first?.icon ?? "01d").png")
+                    self.tempLabel.text = String(Int(object.current?.temp ?? 0)) + "°"
                     
                 }
             } catch let parsingError {
@@ -31,10 +31,11 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         task.resume()
     }
     
-    func configure(name: String, temp: String, icon: String, lat: String, lon: String) {
-        self.lat = lat
-        self.lon = lon
-        self.nameLabel.text = name
+//    func configure(name: String, temp: String, icon: String, lat: String, lon: String) {
+    func configure(with: FavoriteCity) {
+        self.lat = with.lat
+        self.lon = with.lon
+        self.nameLabel.text = with.name
         sendOneCallForecast()
         
     }

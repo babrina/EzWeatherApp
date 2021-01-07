@@ -47,8 +47,16 @@ class WeatherViewModel {
     let plusFourDaysImage: Bindable<String> = Bindable("")
     let plusFourDaysTemp: Bindable<Int> = Bindable(0)
     let country: Bindable<String> = Bindable("")
+    var dailyArray: Bindable<[OneCallWelcome]> = Bindable([OneCallWelcome]())
     
     //MARK: - Funcs
+    
+    func loadCityArray() {
+        if let favoriteCityArray = UserDefaults.standard.value([FavoriteCity].self, forKey: "saved") {
+            self.favoriteCityArray = favoriteCityArray
+        }
+    }
+    
     func removeFromFavorite() {
         if let index = self.favoriteCityArray.firstIndex(where: {$0.name == currentWeatherName.value}) {
             self.favoriteCityArray.remove(at: index)
@@ -86,7 +94,7 @@ class WeatherViewModel {
         return time
     }
     
-    func loadForecast() {
+    func loadForecast(with: OneCallWelcome?) {
         RequestManager.shared.sendDayForecast(town: currentTown, accessPoint: accessPoint) { [weak self] current in
             self?.currentWeatherTemp.value = String(Int(current?.main.temp ?? 0))
             self?.currentWeatherName.value = current?.name ?? ""
@@ -101,30 +109,22 @@ class WeatherViewModel {
             self?.timeZone.value = current?.timezone ?? 0
             self?.country.value = current?.sys.country ?? ""
             RequestManager.shared.sendOneCallForecast(lat: String(self?.myLat ?? 0), lon: String(self?.myLon ?? 0)) { [weak self] oneCall in
-                self?.plus3hours.value = Int(oneCall?.hourly[1].dt ?? 0)
-                self?.plus3hoursTemp.value = Int(oneCall?.hourly[1].temp ?? 0)
-                self?.plus3hoursImageView.value = oneCall?.hourly[1].weather[0].icon ?? ""
-                self?.next6hours.value = Int(oneCall?.hourly[2].dt ?? 0)
-                self?.next6hoursTemp.value = Int(oneCall?.hourly[2].temp ?? 0)
-                self?.next6hoursImageView.value = oneCall?.hourly[2].weather[0].icon ?? ""
-                self?.next9hours.value = Int(oneCall?.hourly[3].dt ?? 0)
-                self?.next9hoursTemp.value = Int(oneCall?.hourly[3].temp ?? 0)
-                self?.next9hoursImageView.value = oneCall?.hourly[3].weather[0].icon ?? ""
-                self?.next12hours.value = Int(oneCall?.hourly[4].dt ?? 0)
-                self?.next12hoursTemp.value = Int(oneCall?.hourly[4].temp ?? 0)
-                self?.next12hoursImageView.value = oneCall?.hourly[4].weather[0].icon ?? ""
-                self?.tommorowTempLabel.value = Int(oneCall?.daily[1].temp.day ?? 0)
-                self?.tommorowImage.value = oneCall?.daily[1].weather[0].icon ?? ""
-                self?.tommorowLabel.value = Int(oneCall?.daily[1].dt ?? 0)
-                self?.plusTwoDays.value = Int(oneCall?.daily[2].dt ?? 0)
-                self?.plusTwoDaysTempLabel.value = Int(oneCall?.daily[2].temp.day ?? 0)
-                self?.plusTwoDaysImage.value = oneCall?.daily[2].weather[0].icon ?? ""
-                self?.plusThreeDays.value = Int(oneCall?.daily[3].dt ?? 0)
-                self?.plusThreeDaysTemp.value = Int(oneCall?.daily[3].temp.day ?? 0)
-                self?.plusThreeDaysImage.value = oneCall?.daily[3].weather[0].icon ?? ""
-                self?.plusFourDays.value = Int(oneCall?.daily[4].dt ?? 0)
-                self?.plusFourDaysTemp.value = Int(oneCall?.daily[4].temp.day ?? 0)
-                self?.plusFourDaysImage.value = oneCall?.daily[4].weather[0].icon ?? ""
+                self?.plus3hours.value = Int(oneCall?.hourly?[1].dt ?? 0)
+                self?.plus3hoursTemp.value = Int(oneCall?.hourly?[1].temp ?? 0)
+                self?.plus3hoursImageView.value = oneCall?.hourly?[1].weather?[0].icon ?? ""
+                self?.next6hours.value = Int(oneCall?.hourly?[2].dt ?? 0)
+                self?.next6hoursTemp.value = Int(oneCall?.hourly?[2].temp ?? 0)
+                self?.next6hoursImageView.value = oneCall?.hourly?[2].weather?[0].icon ?? ""
+                self?.next9hours.value = Int(oneCall?.hourly?[3].dt ?? 0)
+                self?.next9hoursTemp.value = Int(oneCall?.hourly?[3].temp ?? 0)
+                self?.next9hoursImageView.value = oneCall?.hourly?[3].weather?[0].icon ?? ""
+                self?.next12hours.value = Int(oneCall?.hourly?[4].dt ?? 0)
+                self?.next12hoursTemp.value = Int(oneCall?.hourly?[4].temp ?? 0)
+                self?.next12hoursImageView.value = oneCall?.hourly?[4].weather?[0].icon ?? ""
+                guard let myCity = oneCall else {return}
+                DispatchQueue.main.async {
+                    self?.dailyArray.value.append(myCity)
+                }
             }
         }
     }
@@ -132,7 +132,7 @@ class WeatherViewModel {
     func getFormattedTime(input: Double) -> String {
         let date = Date(timeIntervalSince1970: input)
         let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = DateFormatter.Style.short //Set time style
+        dateFormatter.timeStyle = DateFormatter.Style.short
         dateFormatter.timeZone = TimeZone(secondsFromGMT: timeZone.value)
         let localDate = dateFormatter.string(from: date)
         return localDate

@@ -41,7 +41,6 @@ class RequestManager {
                 return }
             do {
                 let object = try JSONDecoder().decode(OneCallWelcome.self, from: data)
-             
                 complition(object)
                 print()
             } catch let parsingError {

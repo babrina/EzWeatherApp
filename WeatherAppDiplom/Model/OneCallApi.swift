@@ -2,12 +2,12 @@ import Foundation
 
 // MARK: - OneCallWelcome
 struct OneCallWelcome: Codable {
-    var lat, lon: Double
-    var timezone: String
-    var timezoneOffset: Double
-    var current: OneCallCurrent
-    var hourly: [OneCallCurrent]
-    var daily: [OneCallDaily]
+    var lat, lon: Double?
+    var timezone: String?
+    var timezoneOffset: Double?
+    var current: OneCallCurrent?
+    var hourly: [OneCallCurrent]?
+    var daily: [OneCallDaily]?
 
     enum CodingKeys: String, CodingKey {
         case lat, lon, timezone
@@ -18,15 +18,15 @@ struct OneCallWelcome: Codable {
 
 // MARK: - OneCallCurrent
 struct OneCallCurrent: Codable {
-    var dt: Double
+    var dt: Double?
     var sunrise, sunset: Double?
-    var temp, feelsLike: Double
-    var pressure, humidity: Double
-    var dewPoDouble, uvi: Double
-    var clouds, visibility: Double
-    var windSpeed: Double
-    var windDeg: Double
-    var weather: [OneCallWeather]
+    var temp, feelsLike: Double?
+    var pressure, humidity: Double?
+    var dewPoDouble, uvi: Double?
+    var clouds, visibility: Double?
+    var windSpeed: Double?
+    var windDeg: Double?
+    var weather: [OneCallWeather]?
     var pop: Double?
 
     enum CodingKeys: String, CodingKey {
@@ -43,8 +43,8 @@ struct OneCallCurrent: Codable {
 
 // MARK: - OneCallWeather
 struct OneCallWeather: Codable {
-    var id: Double
-    var main, weatherDescription, icon: String
+    var id: Double?
+    var main, weatherDescription, icon: String?
 
     enum CodingKeys: String, CodingKey {
         case id, main
@@ -55,15 +55,15 @@ struct OneCallWeather: Codable {
 
 // MARK: - OneCallDaily
 struct OneCallDaily: Codable {
-    var dt, sunrise, sunset: Double
-    var temp: OneCallTemp
-    var feelsLike: OneCallFeelsLike
-    var pressure, humidity: Double
-    var dewPoDouble, windSpeed: Double
-    var windDeg: Double
-    var weather: [OneCallWeather]
-    var clouds, pop: Double
-    var uvi: Double
+    var dt, sunrise, sunset: Double?
+    var temp: OneCallTemp?
+    var feelsLike: OneCallFeelsLike?
+    var pressure, humidity: Double?
+    var dewPoDouble, windSpeed: Double?
+    var windDeg: Double?
+    var weather: [OneCallWeather]?
+    var clouds, pop: Double?
+    var uvi: Double?
 
     enum CodingKeys: String, CodingKey {
         case dt, sunrise, sunset, temp
@@ -78,11 +78,11 @@ struct OneCallDaily: Codable {
 
 // MARK: - OneCallFeelsLike
 struct OneCallFeelsLike: Codable {
-    var day, night, eve, morn: Double
+    var day, night, eve, morn: Double?
 }
 
 // MARK: - OneCallTemp
 struct OneCallTemp: Codable {
-    var day, min, max, night: Double
-    var eve, morn: Double
+    var day, min, max, night: Double?
+    var eve, morn: Double?
 }

@@ -12,9 +12,11 @@
 		9108A305259E408D00889E57 /* AlamofireNetworkActivityIndicator in Frameworks */ = {isa = PBXBuildFile; productRef = 9108A304259E408D00889E57 /* AlamofireNetworkActivityIndicator */; };
 		910AC6A8259FC37B00F086A1 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 910AC6A7259FC37B00F086A1 /* SkeletonView */; };
 		910AC6AF25A2058D00F086A1 /* FavoriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910AC6AE25A2058D00F086A1 /* FavoriteCollectionViewCell.swift */; };
+		911DCFA725A77ABF00C04362 /* HorlyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911DCFA625A77ABF00C04362 /* HorlyCollectionViewCell.swift */; };
 		91401363256F9DE900BC6A24 /* AutocompleteField in Frameworks */ = {isa = PBXBuildFile; productRef = 91401362256F9DE900BC6A24 /* AutocompleteField */; };
 		9150B54B256FCD7800C32223 /* CityJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9150B54A256FCD7800C32223 /* CityJSON.swift */; };
 		9150B54E256FCE3B00C32223 /* Citys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9150B54D256FCE3B00C32223 /* Citys.swift */; };
+		9194228525A62B8D00987534 /* DailyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9194228425A62B8D00987534 /* DailyTableViewCell.swift */; };
 		919884972568FC9F00AC5A05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919884962568FC9F00AC5A05 /* AppDelegate.swift */; };
 		9198849B2568FC9F00AC5A05 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9198849A2568FC9F00AC5A05 /* ViewController.swift */; };
 		9198849E2568FC9F00AC5A05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9198849C2568FC9F00AC5A05 /* Main.storyboard */; };
@@ -40,8 +42,10 @@
 		910062A1257C2DB100834A39 /* weatherappcitiescleaned.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = weatherappcitiescleaned.json; sourceTree = "<group>"; };
 		9108A2FD259E166C00889E57 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		910AC6AE25A2058D00F086A1 /* FavoriteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCollectionViewCell.swift; sourceTree = "<group>"; };
+		911DCFA625A77ABF00C04362 /* HorlyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorlyCollectionViewCell.swift; sourceTree = "<group>"; };
 		9150B54A256FCD7800C32223 /* CityJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityJSON.swift; sourceTree = "<group>"; };
 		9150B54D256FCE3B00C32223 /* Citys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Citys.swift; sourceTree = "<group>"; };
+		9194228425A62B8D00987534 /* DailyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTableViewCell.swift; sourceTree = "<group>"; };
 		919884932568FC9F00AC5A05 /* WeatherAppDiplom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherAppDiplom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		919884962568FC9F00AC5A05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9198849A2568FC9F00AC5A05 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +137,15 @@
 			path = CityJSON;
 			sourceTree = "<group>";
 		};
+		9194227F25A62B0900987534 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				9194228425A62B8D00987534 /* DailyTableViewCell.swift */,
+				911DCFA625A77ABF00C04362 /* HorlyCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		9198848A2568FC9F00AC5A05 = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +221,7 @@
 		91FC12A9258E05A10012748A /* WeatherViewController */ = {
 			isa = PBXGroup;
 			children = (
+				9194227F25A62B0900987534 /* Cells */,
 				919884AC2568FCD200AC5A05 /* WeatherViewController.swift */,
 				91FC12AA258E05C60012748A /* WeatherViewModel.swift */,
 			);
@@ -349,6 +363,7 @@
 				919884AD2568FCD200AC5A05 /* WeatherViewController.swift in Sources */,
 				9108A2FE259E166C00889E57 /* SearchTableViewCell.swift in Sources */,
 				9150B54B256FCD7800C32223 /* CityJSON.swift in Sources */,
+				9194228525A62B8D00987534 /* DailyTableViewCell.swift in Sources */,
 				919884972568FC9F00AC5A05 /* AppDelegate.swift in Sources */,
 				91FC12A4258DF7D10012748A /* RequestManager.swift in Sources */,
 				91BD20552599EF23005815E3 /* OneCallApi.swift in Sources */,
@@ -356,6 +371,7 @@
 				9150B54E256FCE3B00C32223 /* Citys.swift in Sources */,
 				91FC1292258DDD7D0012748A /* Bindable.swift in Sources */,
 				91FC12AB258E05C60012748A /* WeatherViewModel.swift in Sources */,
+				911DCFA725A77ABF00C04362 /* HorlyCollectionViewCell.swift in Sources */,
 				910AC6AF25A2058D00F086A1 /* FavoriteCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -505,7 +521,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X2J5K4ATY6;
 				INFOPLIST_FILE = "WeatherAppDiplom/Supporting files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -513,7 +529,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = AndreyZamiralov.SextantWeather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -528,7 +544,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X2J5K4ATY6;
 				INFOPLIST_FILE = "WeatherAppDiplom/Supporting files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -536,7 +552,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = AndreyZamiralov.SextantWeather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
