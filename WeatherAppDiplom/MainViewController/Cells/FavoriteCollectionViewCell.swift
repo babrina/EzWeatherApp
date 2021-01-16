@@ -5,6 +5,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var weatherImageView: UIImageView!
+    @IBOutlet weak var countryLabel: UILabel!
     
     var lat: String = ""
     var lon: String = ""
@@ -22,7 +23,6 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
                 DispatchQueue.main.async {
                     self.weatherImageView.image = UIImage(named: "\(object.current?.weather?.first?.icon ?? "01d").png")
                     self.tempLabel.text = String(Int(object.current?.temp ?? 0)) + "°"
-                    
                 }
             } catch let parsingError {
                 print("Error", parsingError)
@@ -31,11 +31,11 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         task.resume()
     }
     
-//    func configure(name: String, temp: String, icon: String, lat: String, lon: String) {
     func configure(with: FavoriteCity) {
         self.lat = with.lat
         self.lon = with.lon
         self.nameLabel.text = with.name
+        self.countryLabel.text = with.country
         sendOneCallForecast()
         
     }

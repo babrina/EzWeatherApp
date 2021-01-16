@@ -1,7 +1,6 @@
 import Foundation
 import UIKit
 import CoreLocation
-import AutocompleteField
 
 class ViewModel: UIViewController, CLLocationManagerDelegate, UITextFieldDelegate {
     

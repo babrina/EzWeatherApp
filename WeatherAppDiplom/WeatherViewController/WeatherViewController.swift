@@ -6,17 +6,16 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var weatherImage: UIImageView!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var tempLabel: UILabel!
-    @IBOutlet weak var humidityLabel: UILabel!
-    @IBOutlet weak var windLabel: UILabel!
-    @IBOutlet weak var pressureLabel: UILabel!
     @IBOutlet weak var feelLikeLabel: UILabel!
-    @IBOutlet weak var weatherView: UIView!
-    @IBOutlet weak var daysView: UIView!
-    @IBOutlet weak var feelView: UIView!
-    @IBOutlet weak var hoursView: UIView!
-    @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var daysTableView: UITableView!
     @IBOutlet weak var hoursCollectionView: UICollectionView!
+    @IBOutlet var backgroundView: UIView!
+    @IBOutlet weak var myTableViewView: UIView!
+    @IBOutlet weak var weatherTypeLabel: UILabel!
+    @IBOutlet weak var maxTempLabel: UILabel!
+    @IBOutlet weak var minTempLabel: UILabel!
+    @IBOutlet weak var favoriteButton: UIButton!
+    
     
     //MARK: - VAR
     var town: String = "Saint Petersburg"
@@ -27,6 +26,7 @@ class WeatherViewController: UIViewController {
     var favoriteCityArray: [FavoriteCity] = []
     var currentCity = ""
     var detailMyCity = OneCallWelcome()
+    
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
@@ -62,11 +62,12 @@ class WeatherViewController: UIViewController {
     }
     
     func setUp() {
+        myTableViewView.addSeparator(at: .bottom, color: .gray)
+        myTableViewView.addSeparator(at: .top, color: .gray)
         weatherViewModel.setTown()
         weatherViewModel.accessPoint = accessPoint
         weatherViewModel.myLat = myLat
         weatherViewModel.myLon = myLon
-        interfaceShadowsAndCorners()
         weatherViewModel.loadForecast(with: detailMyCity)
         
     }
@@ -91,39 +92,51 @@ class WeatherViewController: UIViewController {
         weatherViewModel.currentWeatherTemp.bind { (currentWeatherTemp) in
             self.tempLabel.text = currentWeatherTemp + "°"
         }
+        
+        weatherViewModel.currentMinTemp.bind { (currentMinTemp) in
+            self.minTempLabel.text = "▽" + currentMinTemp + "°"
+        }
+        weatherViewModel.currentMaxTemp.bind { (currentMaxTemp) in
+            self.maxTempLabel.text = "△" + currentMaxTemp + "°"
+        }
+        weatherViewModel.currentTypeWeather.bind { (currentTypeWeather) in
+            self.weatherTypeLabel.text = currentTypeWeather
+        }
         weatherViewModel.currentWeatherName.bind { (currentWeatherName) in
             self.cityLabel.text = currentWeatherName
             self.currentCity = currentWeatherName
         }
-        weatherViewModel.currentWeatherHumidity.bind { (currentWeatherHumidity) in
-            self.humidityLabel.text = String(currentWeatherHumidity) + "%"
-        }
-        weatherViewModel.currentWeatherWind.bind { (currentWeatherWind) in
-            self.windLabel.text = String(currentWeatherWind)
-        }
-        weatherViewModel.currentWeatherPressure.bind { (currentWeatherPressure) in
-            self.pressureLabel.text = String(currentWeatherPressure)
-        }
+         
         weatherViewModel.currentWeatherFellsLike.bind { (currentWeatherFellsLike) in
-            self.feelLikeLabel.text = String(currentWeatherFellsLike) + "°"
+            self.feelLikeLabel.text = "Feels like" + " " + String(currentWeatherFellsLike) + "°"
         }
         weatherViewModel.currentWeatherPicture.bind { (currentWeatherPicture) in
             self.weatherImage.image = UIImage(named: "\(currentWeatherPicture).png")
+            DispatchQueue.main.async {
+                if currentWeatherPicture == "01d" {
+                    self.backgroundView.applyMiddleGradient()
+                }
+                if currentWeatherPicture == "09d" || currentWeatherPicture == "10d" || currentWeatherPicture == "11d" {
+                    self.backgroundView.applyRainGradient()
+                }
+                if currentWeatherPicture == "02d" || currentWeatherPicture == "03d" || currentWeatherPicture == "04d" {
+                    self.backgroundView.applyCloudsGradient()
+                }
+                if currentWeatherPicture == "13d" {
+                    self.backgroundView.applySnowGradient()
+                }
+                if currentWeatherPicture == "50d" {
+                    self.backgroundView.applyFogGradient()
+                }
+                if currentWeatherPicture == "50n" || currentWeatherPicture == "01n" || currentWeatherPicture == "02n" || currentWeatherPicture == "03n" || currentWeatherPicture == "04n" || currentWeatherPicture == "05n" || currentWeatherPicture == "06n" || currentWeatherPicture == "07n" || currentWeatherPicture == "08n" || currentWeatherPicture == "09n" || currentWeatherPicture == "10n" || currentWeatherPicture == "11n" ||  currentWeatherPicture == "13n" {
+                    self.backgroundView.applyNightGradient()
+                }
+            }
         }
         weatherViewModel.dailyArray.bind { [weak self] dailyArray in
             self?.daysTableView.reloadData()
             self?.hoursCollectionView.reloadData()
-            
         }
-        
-    }
-    
-    func interfaceShadowsAndCorners() {
-        weatherView.cornerRadius()
-        weatherView.dropShadow()
-        daysView.cornerRadius()
-        feelView.cornerRadius()
-        daysView.dropShadow()
     }
 }
 
@@ -165,7 +178,7 @@ extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataS
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HorlyCollectionViewCell", for: indexPath) as? HorlyCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.configure(time: String(weatherViewModel.getFormattedTime(input: Double(weatherViewModel.dailyArray.value.first?.hourly?[indexPath.row].dt ?? 0))), temp: String(Int(weatherViewModel.dailyArray.value.first?.hourly?[indexPath.row].temp ?? 0)), icon:  weatherViewModel.dailyArray.value.first?.hourly?[indexPath.row].weather?.first?.icon ?? "")
+        cell.configure(time: String(weatherViewModel.getFormattedTime(input: Double(weatherViewModel.dailyArray.value.first?.hourly?[indexPath.row].dt ?? 0))), temp: String(Int(weatherViewModel.dailyArray.value.first?.hourly?[indexPath.row].temp ?? 0)))
         cell.cornerRadius()
         collectionView.showsHorizontalScrollIndicator = false
             return cell

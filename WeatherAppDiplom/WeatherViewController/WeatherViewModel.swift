@@ -22,30 +22,10 @@ class WeatherViewModel {
     let currentWeatherPicture: Bindable<String> = Bindable("")
     let currentWeatherLat: Bindable<Double> = Bindable(0)
     let currentWeatherLon: Bindable<Double> = Bindable(0)
-    let plus3hours: Bindable<Int> = Bindable(0)
-    let plus3hoursTemp: Bindable<Int> = Bindable(0)
-    let plus3hoursImageView: Bindable<String> = Bindable("")
-    let next6hours: Bindable<Int> = Bindable(0)
-    let next6hoursTemp: Bindable<Int> = Bindable(0)
-    let next6hoursImageView: Bindable<String> = Bindable("")
-    let next9hours: Bindable<Int> = Bindable(0)
-    let next9hoursTemp: Bindable<Int> = Bindable(0)
-    let next9hoursImageView: Bindable<String> = Bindable("")
-    let next12hours: Bindable<Int> = Bindable(0)
-    let next12hoursTemp: Bindable<Int> = Bindable(0)
-    let next12hoursImageView: Bindable<String> = Bindable("")
-    let tommorowLabel: Bindable<Int> = Bindable(0)
-    let tommorowImage: Bindable<String> = Bindable("")
-    let tommorowTempLabel: Bindable<Int> = Bindable(0)
-    let plusTwoDays: Bindable<Int> = Bindable(0)
-    let plusTwoDaysImage: Bindable<String> = Bindable("")
-    let plusTwoDaysTempLabel: Bindable<Int> = Bindable(0)
-    let plusThreeDays: Bindable<Int> = Bindable(0)
-    let plusThreeDaysImage: Bindable<String> = Bindable("")
-    let plusThreeDaysTemp: Bindable<Int> = Bindable(0)
-    let plusFourDays: Bindable<Int> = Bindable(0)
-    let plusFourDaysImage: Bindable<String> = Bindable("")
-    let plusFourDaysTemp: Bindable<Int> = Bindable(0)
+    let currentTypeWeather: Bindable<String> = Bindable("")
+    let currentMaxTemp: Bindable<String> = Bindable("")
+    let currentMinTemp: Bindable<String> = Bindable("")
+    let currentCountry: Bindable<String> = Bindable("")
     let country: Bindable<String> = Bindable("")
     var dailyArray: Bindable<[OneCallWelcome]> = Bindable([OneCallWelcome]())
     
@@ -76,7 +56,8 @@ class WeatherViewModel {
                                                 lon: String(myLon),
                                                 name: currentWeatherName.value,
                                                 temp: String(currentWeatherTemp.value),
-                                                icon: currentWeatherPicture.value))
+                                                icon: currentWeatherPicture.value,
+                                                country: currentCountry.value))
         }
     }
     
@@ -108,19 +89,11 @@ class WeatherViewModel {
             self?.currentTime.value = current?.dt ?? 0
             self?.timeZone.value = current?.timezone ?? 0
             self?.country.value = current?.sys.country ?? ""
+            self?.currentTypeWeather.value = current?.weather[0].main ?? ""
+            self?.currentMinTemp.value = String(Int(current?.main.tempMin ?? 0))
+            self?.currentMaxTemp.value = String(Int(current?.main.tempMax ?? 0))
+            self?.currentCountry.value = current?.sys.country ?? ""
             RequestManager.shared.sendOneCallForecast(lat: String(self?.myLat ?? 0), lon: String(self?.myLon ?? 0)) { [weak self] oneCall in
-                self?.plus3hours.value = Int(oneCall?.hourly?[1].dt ?? 0)
-                self?.plus3hoursTemp.value = Int(oneCall?.hourly?[1].temp ?? 0)
-                self?.plus3hoursImageView.value = oneCall?.hourly?[1].weather?[0].icon ?? ""
-                self?.next6hours.value = Int(oneCall?.hourly?[2].dt ?? 0)
-                self?.next6hoursTemp.value = Int(oneCall?.hourly?[2].temp ?? 0)
-                self?.next6hoursImageView.value = oneCall?.hourly?[2].weather?[0].icon ?? ""
-                self?.next9hours.value = Int(oneCall?.hourly?[3].dt ?? 0)
-                self?.next9hoursTemp.value = Int(oneCall?.hourly?[3].temp ?? 0)
-                self?.next9hoursImageView.value = oneCall?.hourly?[3].weather?[0].icon ?? ""
-                self?.next12hours.value = Int(oneCall?.hourly?[4].dt ?? 0)
-                self?.next12hoursTemp.value = Int(oneCall?.hourly?[4].temp ?? 0)
-                self?.next12hoursImageView.value = oneCall?.hourly?[4].weather?[0].icon ?? ""
                 guard let myCity = oneCall else {return}
                 DispatchQueue.main.async {
                     self?.dailyArray.value.append(myCity)
