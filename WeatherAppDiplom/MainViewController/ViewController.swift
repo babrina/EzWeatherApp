@@ -26,7 +26,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         firstSetup()
         NotificationCenter.default.addObserver(self, selector: #selector(updateCollection), name: Notification.Name.backButtonPressed, object: nil)
         viewModel.loadCityArray()
-        searchBar.setupSearchBar(background: .clear, inputText: .black, placeholderText: .white, image: .black)
+        searchBar.setupSearchBar(background: .clear, inputText: .white, placeholderText: .white, image: .black)
     }
     
     //MARK: - Actions

@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		910062A2257C2DB100834A39 /* weatherappcitiescleaned.json in Resources */ = {isa = PBXBuildFile; fileRef = 910062A1257C2DB100834A39 /* weatherappcitiescleaned.json */; };
 		9108A2FE259E166C00889E57 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9108A2FD259E166C00889E57 /* SearchTableViewCell.swift */; };
-		910AC6A8259FC37B00F086A1 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 910AC6A7259FC37B00F086A1 /* SwiftPackageProductDependency */; };
+		910AC6A8259FC37B00F086A1 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 910AC6A7259FC37B00F086A1 /* SkeletonView */; };
 		910AC6AF25A2058D00F086A1 /* FavoriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910AC6AE25A2058D00F086A1 /* FavoriteCollectionViewCell.swift */; };
 		911DCFA725A77ABF00C04362 /* HorlyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911DCFA625A77ABF00C04362 /* HorlyCollectionViewCell.swift */; };
 		9150B54B256FCD7800C32223 /* CityJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9150B54A256FCD7800C32223 /* CityJSON.swift */; };
@@ -70,7 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				910AC6A8259FC37B00F086A1 /* BuildFile in Frameworks */,
+				910AC6A8259FC37B00F086A1 /* SkeletonView in Frameworks */,
 				A7688975A01C52B2029DDD79 /* Pods_WeatherAppDiplom.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -242,7 +242,7 @@
 			);
 			name = WeatherAppDiplom;
 			packageProductDependencies = (
-				910AC6A7259FC37B00F086A1 /* SwiftPackageProductDependency */,
+				910AC6A7259FC37B00F086A1 /* SkeletonView */,
 			);
 			productName = WeatherAppDiplom;
 			productReference = 919884932568FC9F00AC5A05 /* WeatherAppDiplom.app */;
@@ -272,7 +272,7 @@
 			);
 			mainGroup = 9198848A2568FC9F00AC5A05;
 			packageReferences = (
-				910AC6A6259FC37B00F086A1 /* RemoteSwiftPackageReference */,
+				910AC6A6259FC37B00F086A1 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = 919884942568FC9F00AC5A05 /* Products */;
 			projectDirPath = "";
@@ -494,7 +494,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = X2J5K4ATY6;
 				INFOPLIST_FILE = "WeatherAppDiplom/Supporting files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -517,7 +517,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = X2J5K4ATY6;
 				INFOPLIST_FILE = "WeatherAppDiplom/Supporting files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -557,7 +557,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		910AC6A6259FC37B00F086A1 /* RemoteSwiftPackageReference */ = {
+		910AC6A6259FC37B00F086A1 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
 			requirement = {
@@ -568,9 +568,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		910AC6A7259FC37B00F086A1 /* SwiftPackageProductDependency */ = {
+		910AC6A7259FC37B00F086A1 /* SkeletonView */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 910AC6A6259FC37B00F086A1 /* RemoteSwiftPackageReference */;
+			package = 910AC6A6259FC37B00F086A1 /* XCRemoteSwiftPackageReference "SkeletonView" */;
 			productName = SkeletonView;
 		};
 /* End XCSwiftPackageProductDependency section */

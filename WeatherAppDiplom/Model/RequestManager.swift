@@ -1,6 +1,5 @@
 import UIKit
 
-
 class RequestManager {
     
     static let shared = RequestManager()
