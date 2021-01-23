@@ -31,24 +31,6 @@ struct Weather: Codable {
     }
 }
 
-//enum MainEnum: String, Codable {
-//    case clear = "Clear"
-//    case clouds = "Clouds"
-//    case rain = "Rain"
-//    case thunderstorm = "Thunderstorm"
-//    case drizzle = "Drizzle"
-//    case snow = "Snow"
-//    case mist = "Mist"
-//    case smoke = "Smoke"
-//    case haze = "Haze"
-//    case dust = "Dust"
-//    case fog = "Fog"
-//    case sand = "Sand"
-//    case ash = "Ash"
-//    case squall = "Squall"
-//    case tornado = "Tornado"
-//}
-
 struct Main: Codable {
     let temp, feelsLike, tempMin, tempMax, pressure, humidity: Double
     

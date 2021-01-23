@@ -23,11 +23,6 @@ class RequestManager {
         task.resume()
     }
     
-    
-    
-    func alamo() {
-        
-    }
 
     func sendOneCallForecast(lat: String, lon: String, complition: @escaping (OneCallWelcome?)->()) {
         let unFormattedURL = "https://api.openweathermap.org/data/2.5/onecall?lat=\(lat)&lon=\(lon)&exclude=minutely,alerts&appid=9447cdea74b8b95f4fc841ab07797377&units=metric"
