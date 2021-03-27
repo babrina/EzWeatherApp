@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class ViewModel: UIViewController, CLLocationManagerDelegate, UITextFieldDelegate {
+class ViewModel: UIViewController, CLLocationManagerDelegate, UITextFieldDelegate  {
     
     //MARK: - VAR
     var lat: Double = 0
@@ -12,8 +12,8 @@ class ViewModel: UIViewController, CLLocationManagerDelegate, UITextFieldDelegat
     var citiesArray: [String] = []
     var filteredData: [String] = []
     var favoriteCityArray: [FavoriteCity] = []
+
     //MARK: - Funcs
-    
     func loadCityArray() {
         if let favoriteCityArray = UserDefaults.standard.value([FavoriteCity].self, forKey: "saved") {
         self.favoriteCityArray = favoriteCityArray
@@ -34,7 +34,7 @@ class ViewModel: UIViewController, CLLocationManagerDelegate, UITextFieldDelegat
             let object = try JSONDecoder().decode(CityJSON.self, from: data)
             citiesArray = object.name
         } catch {
-            print("Data err")
+            print("Data error")
         }
     }
     

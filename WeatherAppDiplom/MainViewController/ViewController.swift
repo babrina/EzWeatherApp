@@ -2,7 +2,7 @@ import UIKit
 import CoreLocation
 import SkeletonView
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, UpdateCollectionDelegate {
     
     //MARK: OUTLETS
     @IBOutlet weak var locationButton: UIButton!
@@ -18,13 +18,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     //MARK: VAR
     var viewModel = ViewModel()
     var weatherViewModel = WeatherViewModel()
+    
     //MARK: Lifecycle Func
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBarView.isHidden = true
-        backgroundView.applyFavoriteGradient()
         firstSetup()
-        NotificationCenter.default.addObserver(self, selector: #selector(updateCollection), name: Notification.Name.backButtonPressed, object: nil)
         viewModel.loadCityArray()
         searchBar.setupSearchBar(background: .clear, inputText: .white, placeholderText: .white, image: .black)
     }
@@ -34,6 +32,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         guard let controller = self.storyboard?.instantiateViewController(withIdentifier: "WeatherViewController") as? WeatherViewController else {return}
         controller.town = searchBar.searchTextField.text ?? "Saint Petersburg"
         self.navigationController?.pushViewController(controller, animated: true)
+        controller.delegate = self
     }
     
     @IBAction func plusButtonPressed(_ sender: UIButton) {
@@ -44,13 +43,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             UIView.animate(withDuration: 0.3) {
                 self.view.layoutIfNeeded()
             }
-            } else {
-                collectionViewConstraint.constant = 0
-                UIView.animate(withDuration: 0.3) {
-                    self.searchBarView.isHidden = true
-                    self.view.layoutIfNeeded()
-                }
+        } else {
+            collectionViewConstraint.constant = 0
+            UIView.animate(withDuration: 0.3) {
+                self.searchBarView.isHidden = true
+                self.view.layoutIfNeeded()
             }
+        }
     }
     
     @IBAction func locationButtonPressed(_ sender: UIButton) {
@@ -59,16 +58,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         controller.town = ""
         controller.myLat = viewModel.lat
         controller.myLon = viewModel.lon
+        controller.delegate = self
         self.navigationController?.pushViewController(controller, animated: true)
     }
     //MARK: - Funcs
     
-    @objc func updateCollection() {
+    func updateCollection() {
         viewModel.loadCityArray()
         self.collectionView.reloadData()
     }
     
     func firstSetup() {
+        searchBarView.isHidden = true
+        backgroundView.applyFavoriteGradient()
+        
         self.hideKeyboardWhenTappedAround()
         tableView.isHidden = true
         tableView.cornerRadius()
@@ -143,7 +146,7 @@ extension ViewController: UISearchBarDelegate {
 }
 
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, SkeletonCollectionViewDataSource {
-      func collectionSkeletonView(_ collectionView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
+    func collectionSkeletonView(_ collectionView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
         return "FavoriteCollectionViewCell"
     }
     
@@ -163,13 +166,13 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
             cell.hideSkeleton()
         }
         cell.configure(with: viewModel.favoriteCityArray[indexPath.row])
-       return cell
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let side = collectionView.frame.size.width / 2 - 5
-    
+        
         return CGSize(width: side, height: side)
     }
     

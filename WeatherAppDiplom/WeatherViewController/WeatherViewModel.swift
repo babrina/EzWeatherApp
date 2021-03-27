@@ -27,7 +27,7 @@ class WeatherViewModel {
     let currentMinTemp: Bindable<String> = Bindable("")
     let currentCountry: Bindable<String> = Bindable("")
     let country: Bindable<String> = Bindable("")
-    var dailyArray: Bindable<[OneCallWelcome]> = Bindable([OneCallWelcome]())
+    var dailyArray: Bindable<[OneCall]> = Bindable([OneCall]())
     
     //MARK: - Funcs
     
@@ -61,12 +61,13 @@ class WeatherViewModel {
         }
     }
     
-    func setTown() {
-        currentTown = currentTown.urlEncoded()!
+    func setTown() -> String {
+        return currentTown.urlEncoded() ?? "Saint Petersburg"
+
     }
     
     func addMinuteToTime() -> String {
-        var nextMinute = String(self.getFormattedTime(input: Double(self.currentTime.value + 60)))
+        let nextMinute = String(self.getFormattedTime(input: Double(self.currentTime.value + 60)))
         return nextMinute
     }
     
@@ -75,7 +76,7 @@ class WeatherViewModel {
         return time
     }
     
-    func loadForecast(with: OneCallWelcome?) {
+    func loadForecast(with: OneCall?) {
         RequestManager.shared.sendDayForecast(town: currentTown, accessPoint: accessPoint) { [weak self] current in
             self?.currentWeatherTemp.value = String(Int(current?.main.temp ?? 0))
             self?.currentWeatherName.value = current?.name ?? ""
@@ -103,12 +104,12 @@ class WeatherViewModel {
     }
     
     func getFormattedTime(input: Double) -> String {
-        let date = Date(timeIntervalSince1970: input)
+        let time = Date(timeIntervalSince1970: input)
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = DateFormatter.Style.short
         dateFormatter.timeZone = TimeZone(secondsFromGMT: timeZone.value)
-        let localDate = dateFormatter.string(from: date)
-        return localDate
+        let localTime = dateFormatter.string(from: time)
+        return localTime
     }
     
     func getFormattedDate(input: Double) -> String {

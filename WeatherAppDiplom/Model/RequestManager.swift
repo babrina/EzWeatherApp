@@ -24,7 +24,7 @@ class RequestManager {
     }
     
 
-    func sendOneCallForecast(lat: String, lon: String, complition: @escaping (OneCallWelcome?)->()) {
+    func sendOneCallForecast(lat: String, lon: String, complition: @escaping (OneCall?)->()) {
         let unFormattedURL = "https://api.openweathermap.org/data/2.5/onecall?lat=\(lat)&lon=\(lon)&exclude=minutely,alerts&appid=9447cdea74b8b95f4fc841ab07797377&units=metric"
         guard let url = URL(string: unFormattedURL) else {return}
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -33,7 +33,7 @@ class RequestManager {
                 print(error?.localizedDescription ?? "Response Error")
                 return }
             do {
-                let object = try JSONDecoder().decode(OneCallWelcome.self, from: data)
+                let object = try JSONDecoder().decode(OneCall.self, from: data)
                 complition(object)
                 print()
             } catch let parsingError {

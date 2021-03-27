@@ -1,7 +1,7 @@
 import Foundation
 
 // MARK: - OneCallWelcome
-struct OneCallWelcome: Codable {
+struct OneCall: Codable {
     var lat, lon: Double?
     var timezone: String?
     var timezoneOffset: Double?

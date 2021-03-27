@@ -1,5 +1,7 @@
 import UIKit
-
+protocol UpdateCollectionDelegate {
+    func updateCollection()
+}
 class WeatherViewController: UIViewController {
     //MARK: - OUTLETS
     @IBOutlet weak var currentTimeLabel: UILabel!
@@ -25,8 +27,8 @@ class WeatherViewController: UIViewController {
     var myLon: Double = 0
     var favoriteCityArray: [FavoriteCity] = []
     var currentCity = ""
-    var detailMyCity = OneCallWelcome()
-    
+    var detailMyCity = OneCall()
+    var delegate: UpdateCollectionDelegate?
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
@@ -37,11 +39,12 @@ class WeatherViewController: UIViewController {
         bindUI()
         removeBlurWithGDC()
         weatherViewModel.loadCityArray()
+        
     }
     
     //MARK: - Actions
     @IBAction func backButtonPressed(_ sender: UIButton) {
-        NotificationCenter.default.post(name: Notification.Name.backButtonPressed, object: nil, userInfo: nil)
+        delegate?.updateCollection()
         self.navigationController?.popViewController(animated: true)
     }
     @IBAction func favoriteButtonPressed(_ sender: UIButton) {
@@ -64,7 +67,7 @@ class WeatherViewController: UIViewController {
     func setUp() {
         myTableViewView.addSeparator(at: .bottom, color: .gray)
         myTableViewView.addSeparator(at: .top, color: .gray)
-        weatherViewModel.setTown()
+        weatherViewModel.currentTown = weatherViewModel.setTown()
         weatherViewModel.accessPoint = accessPoint
         weatherViewModel.myLat = myLat
         weatherViewModel.myLon = myLon
@@ -83,7 +86,7 @@ class WeatherViewController: UIViewController {
         weatherViewModel.currentTime.bind { (currentTime) in
             self.currentTimeLabel.text = self.weatherViewModel.fixTime()
             let timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(60), repeats: true) { (_) in
-                var nextMinute = self.weatherViewModel.addMinuteToTime()
+                let nextMinute = self.weatherViewModel.addMinuteToTime()
                 UIView.animate(withDuration: 0.3) {
                     self.currentTimeLabel.text = nextMinute
                 }
@@ -139,11 +142,6 @@ class WeatherViewController: UIViewController {
         }
     }
 }
-
-extension Notification.Name {
-    static let backButtonPressed = Notification.Name("backButtonPressed")
-}
-
 
 extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
